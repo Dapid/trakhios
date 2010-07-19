@@ -1,9 +1,16 @@
 #importing
-import numpy as np
-import psyco
+from __future__ import division
 import matplotlib
+matplotlib.use('Agg')           # Backend.
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import numpy as np
+from numpy import array, dot, linalg, asarray
+from pylab import show, savefig
+import psyco
 import silenus
-#use Agg
+import hrun
+
 
 print "Tracking. Developing version."
 
@@ -13,17 +20,15 @@ def importer(name, it):
 
 def namefile(name, it):
     
-def find_center(x0, image):
-    
+
+
 def export(data, txtfile):
-
-
 
 
 
 # Setting up
 tol=0.7
-centers=[[20,30],[25, 49]]
+centers=[array([20,30]),array([25, 49])]
 dbfile='data.txt'
 
 dbfile=silenus.asking_file(dbfile)
@@ -44,6 +49,6 @@ print 'Starting'
 for it in xrange(bottom, top):
     frame=importer(namecode, it)
     for k in len(centers):
-        centers[k]=find_center(centers[k], frame)
+        centers[k]=hrun.find_center(centers[k], frame)
         export(centers[k], dbfile)
         

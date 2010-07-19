@@ -1,6 +1,8 @@
+from __future__ import division
+
 'Silenus was an old servant of the Cyclops.'
 ''
-'Here is to assist Trakios in non-scientific heavy tasks, like file handling.'
+'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
 
 
 def asking_file(txtfile):
@@ -25,3 +27,21 @@ def asking_file(txtfile):
     else:
         raw_input('An error will be raised to end the program. Press enter.')
         raise 'FileHandlingError.'
+
+
+def readpix(x0, image):
+    n=len(image)
+    m=len(image[0])
+    x=x0[0]
+    y=x0[1]
+    if x<0 or y<0 or x>m or y>n: raise 'DimensionError. The object is outside the field.'
+    val=image[y][x]
+    if len(val)==1:
+        return val
+    else:
+        return mean(val)
+
+def mean(lista):
+    s=0
+    for i in lista: s+=i
+    return s/len(lista)
