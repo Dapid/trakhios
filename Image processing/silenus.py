@@ -1,14 +1,16 @@
 from __future__ import division
+import shutil
 
 'Silenus was an old servant of the Cyclops.'
 ''
 'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
 
-print 'Silenus v.1'
+print 'Silenus v.2.2'
 
 def asking_file(databasefile):
     try:
-        open(databasefile, 'r')
+        db=open(databasefile, 'r')
+        db.close()
         print 'The exporting file already exists. Overwrite? (y/n)',
         while True:
             over=raw_input()
@@ -26,10 +28,58 @@ def asking_file(databasefile):
         databasefile=open(databasefile, 'w')
         return databasefile
     else:
-        raw_input('An error will be raised to end the program. Press enter.')
-        raise 'FileHandlingError.'
+        print'Do you want to save a copy of the existing data file? (y/n)',
+        while True:
+            cop=raw_input()
+            if cop=='y' or cop=='yes':
+                copy=True
+                break
+            elif cop=='n' or cop=='no':
+                copy=False
+                break
+            else: print 'Command unknown. Please, type y/n.',
+            
+        if copy==False:
+            print
+            raw_input("It seems you don't want it to be executed. An error will be raised to end the program. Press enter.")
+            raise 'FileHandlingError'
 
+        elif copy==True:
+            while True:
+                overwrite, name=ask_overwrite()
+                if overwrite==True:
+                        break
+                if overwrite==False:
+                    print 'Try again or press Ctrl+C to terminate.'
+                    print
+                    
+            shutil.copy(databasefile, name)
+            databasefile=open(databasefile, 'w')
+            return databasefile
 
+        else: raise 'Fatal error'           # This shouldn't happen.
+
+def ask_overwrite():
+    print
+    name=raw_input('Please, enter the new name of the file: ')
+    name=name+'.txt'
+    try:
+        db=open(name, 'r')
+        db.close()
+        print 'The file already exists. Overwrite? (y/n)',
+        while True:
+            over=raw_input()
+            if over=='y' or over=='yes':
+                overwrite=True
+                break
+            elif over=='n' or over=='no':
+                overwrite=False
+                break
+            else: print 'Command unknown. Please, type y/n.',
+    except IOError: overwrite=True
+    return overwrite, name
+
+    
 def readpix(x,y, image):
     n=len(image)
     m=len(image[0])

@@ -1,5 +1,7 @@
-#importing
+# Importing
 from __future__ import division
+print "Tracking. Developing version."
+print 'Importing'
 import matplotlib
 matplotlib.use('Agg')           # Backend.
 import matplotlib.pyplot as plt
@@ -12,7 +14,7 @@ import os
 
 
 
-print "Tracking. Developing version."
+
 print
 import silenus
 import hrun
@@ -36,8 +38,8 @@ tol=0.7
 centers=[array([300,300]),array([749, 374])]
 dbfilename='data.txt'
 
-#dbfile=silenus.asking_file('data.txt')
-dbfile=open(dbfilename, 'w')
+dbfile=silenus.asking_file(dbfilename)
+
     
 psyco.full()
 
@@ -50,6 +52,8 @@ top=100
 
 # Iterating
 
+print
+print
 print 'Starting'
 for it in xrange(bottom, top+1):
     frame=importer(namecode, it)
