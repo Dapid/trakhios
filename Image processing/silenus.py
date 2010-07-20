@@ -5,9 +5,9 @@ from __future__ import division
 'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
 
 
-def asking_file(txtfile):
+def asking_file(databasefile):
     try:
-        open(dbfile, 'r')
+        open(databasefile, 'r')
         print 'The exporting file already exists. Overwrite? (y/n)',
         while True:
             over=raw_input()
@@ -22,18 +22,16 @@ def asking_file(txtfile):
     except IOError: overwrite=True
 
     if overwrite==True:
-        dbfile=open(dbfile, 'w')
-        return dbfile
+        databasefile=open(databasefile, 'w')
+        return databasefile
     else:
         raw_input('An error will be raised to end the program. Press enter.')
         raise 'FileHandlingError.'
 
 
-def readpix(x0, image):
+def readpix(x,y, image):
     n=len(image)
     m=len(image[0])
-    x=x0[0]
-    y=x0[1]
     if x<0 or y<0 or x>m or y>n: raise 'DimensionError. The object is outside the field.'
     val=image[y][x]
     if len(val)==1:
