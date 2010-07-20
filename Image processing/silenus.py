@@ -4,6 +4,7 @@ from __future__ import division
 ''
 'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
 
+print 'Silenus v.1'
 
 def asking_file(databasefile):
     try:
@@ -37,7 +38,8 @@ def readpix(x,y, image):
     if len(val)==1:
         return val
     else:
-        return mean(val)
+        #return mean(val)
+        return val[0]
 
 def mean(lista):
     s=0

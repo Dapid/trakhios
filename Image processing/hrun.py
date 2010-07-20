@@ -5,6 +5,7 @@ import silenus
 'Hrun, an intelectual barbarian, is the intelligence core of Trakhios.'
 'He will analize each frame looking for trackable points.'
 
+print 'Hrun v.1'
 
 def find_center(x0, image, tol):
     x=x0[0]
@@ -15,7 +16,8 @@ def find_center(x0, image, tol):
     it4=0
     
     val=silenus.readpix(x,y, image)
-    while val<tol:
+    #print '-', val
+    while val>tol:
         x+=1
         val=silenus.readpix(x,y, image)
         it1+=1
@@ -24,7 +26,8 @@ def find_center(x0, image, tol):
     x=x0[0]
         
     val=silenus.readpix(x, y, image)
-    while val<tol:
+    #print '-', val
+    while val>tol:
         x-=1
         val=silenus.readpix(x,y, image)
         it2+=1
@@ -33,7 +36,8 @@ def find_center(x0, image, tol):
     x=x0[0]
 
     val=silenus.readpix(x, y, image)
-    while val<tol:
+    #print '-', val
+    while val>tol:
         y+=1
         val=silenus.readpix(x, y, image)
         it3+=1
@@ -42,13 +46,14 @@ def find_center(x0, image, tol):
     y=x0[1]
 
     val=silenus.readpix(x, y, image)
-    while val<tol:
+    #print '-', val
+    while val>tol:
         y-=1
         val=silenus.readpix(x, y, image)
         it4+=1
     y2=y
 
-    print it1, it2, it3, it4
-    print '**'
+    #print it1, it2, it3, it4
+    #print '***'
     #print [(x1+x2)*0.5, (y1+y2)*0.5]
     return array([(x1+x2)*0.5, (y1+y2)*0.5])

@@ -9,11 +9,14 @@ from numpy import array, dot, linalg, asarray
 from pylab import show, savefig
 import psyco
 import os
-import silenus
-import hrun
+
 
 
 print "Tracking. Developing version."
+print
+import silenus
+import hrun
+print
 
 def importer(name, it):
     image=mpimg.imread('data/'+namefile(name, it))
@@ -30,7 +33,7 @@ def export(data, txtfile):
 
 # Setting up
 tol=0.7
-centers=[array([230,230]),array([374, 749])]
+centers=[array([300,300]),array([749, 374])]
 dbfilename='data.txt'
 
 #dbfile=silenus.asking_file('data.txt')
@@ -42,18 +45,18 @@ psyco.full()
 
 namecode='firstest'
 bottom=0
-top=50
+top=100
 
 
 # Iterating
 
 print 'Starting'
-for it in xrange(bottom, top):
+for it in xrange(bottom, top+1):
     frame=importer(namecode, it)
     for k in xrange(len(centers)):
         centers[k]=hrun.find_center(centers[k], frame, tol)
         export(centers[k], dbfile)
     export('\n', dbfile)
-    print it
+    print it,
 
 print 'Finished'
