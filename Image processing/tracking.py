@@ -8,6 +8,7 @@ import numpy as np
 from numpy import array, dot, linalg, asarray
 from pylab import show, savefig
 import psyco
+import os
 import silenus
 import hrun
 
@@ -24,7 +25,8 @@ def namefile(name, it):
 
 def export(data, txtfile):
 
-
+    filename.flush()
+    os.fsync(filename.fileno())
 
 # Setting up
 tol=0.7
