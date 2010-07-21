@@ -1,1 +1,4 @@
 glob:*.pyc
+glob:*Thumbs.db
+glob:Image processing/data/*.png
+glob:Image processing/data*.txt
