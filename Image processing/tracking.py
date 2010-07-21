@@ -1,7 +1,8 @@
 # Importing
 from __future__ import division
 from time import time
-print "Tracking. Developing version."
+print 'Tracking. Developing version.'
+print
 print 'Importing'
 t0=time()
 import matplotlib
@@ -14,12 +15,12 @@ from pylab import show, savefig
 import psyco
 import os
 
-
-print
 import silenus
 import hrun
-print
 
+print
+print 'Using', silenus.ver, 'and', hrun.ver
+print
 
 def importer(name, it):
     image=mpimg.imread('data/'+namefile(name, it))
@@ -55,7 +56,7 @@ top=100
 
 # Iterating
 
-print
+
 print
 print 'Starting'
 t3=time()

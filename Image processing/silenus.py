@@ -5,7 +5,7 @@ import shutil
 ''
 'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
 
-print 'Silenus v.2.2'
+ver='Silenus v.2.2.1'
 
 def asking_file(databasefile):
     try:

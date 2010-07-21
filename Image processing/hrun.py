@@ -5,7 +5,7 @@ import silenus
 'Hrun, an intelectual barbarian, is the intelligence core of Trakhios.'
 'He will analize each frame looking for trackable points.'
 
-print 'Hrun v.1'
+ver='Hrun v.1.0.1'
 
 def find_center(x0, image, tol):
     x=x0[0]
