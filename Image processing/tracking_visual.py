@@ -41,7 +41,7 @@ t1=tt()
 
 tol=0.7
 centers=[array([300,300]),array([749, 374])]
-dbfilename='data.txt'
+dbfilename='data_visual.txt'
 
 
 dbfile=silenus.asking_file(dbfilename)
@@ -87,9 +87,13 @@ for it in xrange(bottom, top+1):
         centers[k]=hrun.find_center(centers[k], frame, tol)
         export(centers[k], dbfile)
         if k==0:
-            c0.append(pos=centers[k])
+            newpos=list(centers[k])
+            newpos.append(-it)
+            c0.append(pos=newpos)
         else:
-            c1.append(pos=centers[k])
+            newpos=list(centers[k])
+            newpos.append(-it)
+            c1.append(pos=newpos)
         
     export('\n', dbfile)
     print it,
