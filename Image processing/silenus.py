@@ -95,3 +95,12 @@ def mean(lista):
     s=0
     for i in lista: s+=i
     return s/len(lista)
+
+def namefile(name, it):
+    return name+'_'+str(it).zfill(6)+'.png'
+
+def export(data, txtfile):
+    line=str(data)+'\n'
+    txtfile.write(line)
+    txtfile.flush()
+    os.fsync(txtfile.fileno())

@@ -24,17 +24,12 @@ print 'Using', silenus.ver, 'and', hrun.ver
 print
 
 def importer(name, it):
-    image=mpimg.imread('data/'+namefile(name, it))
+    image=mpimg.imread('data/'+silenus.namefile(name, it))
     return image
 
-def namefile(name, it):
-    return name+'_'+str(it).zfill(6)+'.png'
 
-def export(data, txtfile):
-    line=str(data)+'\n'
-    txtfile.write(line)
-    txtfile.flush()
-    os.fsync(txtfile.fileno())
+
+
 
 t1=time()
 
@@ -70,8 +65,8 @@ for it in xrange(bottom, top+1):    # TODO: Iterate until fail.
     frame=importer(namecode, it)
     for k in xrange(len(centers)):
         centers[k]=hrun.find_center(centers[k], frame, tol)
-        export(centers[k], dbfile)
-    export('\n', dbfile)
+        silenus.export(centers[k], dbfile)
+    silenus.export('\n', dbfile)
     print it,
 dbfile.close()
 t4=time()
