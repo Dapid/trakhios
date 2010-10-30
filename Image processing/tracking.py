@@ -4,6 +4,7 @@ from time import time
 print 'Tracking. Developing version.'
 print
 print 'Importing'
+
 t0=time()
 import matplotlib
 matplotlib.use('Agg')           # Backend.
@@ -39,7 +40,7 @@ t1=time()
 
 # Setting up
 tol=0.7
-centers=[array([300,300]),array([749, 374])]
+centers=[array([150,380]),array([520, 374])]
 dbfilename='data.txt'
 
 dbfile=silenus.asking_file(dbfilename)
@@ -49,9 +50,9 @@ psyco.full()
 
 # Parameters
 
-namecode='firstest'
+namecode='try1'
 bottom=0
-top=100
+top=203
 
 
 # Iterating
@@ -60,7 +61,12 @@ top=100
 print
 print 'Starting'
 t3=time()
-for it in xrange(bottom, top+1):
+#imgf=importer(namecode, 0)
+#plt.imshow(imgf)
+#show()
+#raise "Ended"
+
+for it in xrange(bottom, top+1):    # TODO: Iterate until fail.
     frame=importer(namecode, it)
     for k in xrange(len(centers)):
         centers[k]=hrun.find_center(centers[k], frame, tol)
