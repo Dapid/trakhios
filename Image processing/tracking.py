@@ -27,10 +27,6 @@ def importer(name, it):
     image=mpimg.imread('data/'+silenus.namefile(name, it))
     return image
 
-
-
-
-
 t1=time()
 
 # Setting up
