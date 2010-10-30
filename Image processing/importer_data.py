@@ -9,18 +9,24 @@ def float_list(lis):
     return newlis
 
 def importer_data(namefile='data.txt'):
-    print "Starting importing data"
+    print "Starting importing data."
     
     file=open(namefile, 'r')
-    ncenters=2
     centers=[]
     count=0
     k=0
     
+    ncenters=0
+    for line in file:               # Counting centers.
+        if line=='\n': break
+        else: ncenters+=1
+    file.close()
+    
+    file=open(namefile, 'r')
+    
     for i in xrange(ncenters): 
         centers.append(array([]))
     it=0
-    
     while True:
         print it,
         it+=1
@@ -38,5 +44,5 @@ def importer_data(namefile='data.txt'):
     print
     for k in range(ncenters):
         centers[k]=centers[k].reshape(len(centers[k])/2,2)
-
-print "End"
+    file.close()
+    return centers
