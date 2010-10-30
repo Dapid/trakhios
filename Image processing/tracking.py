@@ -40,15 +40,12 @@ t2=time()
 psyco.full()
 
 # Parameters
-
 namecode='try1'
 bottom=0
 top=203
 
 
 # Iterating
-
-
 print
 print 'Starting'
 t3=time()
