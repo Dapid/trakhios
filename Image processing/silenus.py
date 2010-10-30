@@ -79,8 +79,7 @@ def ask_overwrite():
             else: print 'Command unknown. Please, type y/n.',
     except IOError: overwrite=True
     return overwrite, name
-
-    
+   
 def readpix(x,y, image):
     n=len(image)
     m=len(image[0])
@@ -100,8 +99,17 @@ def mean(lista):
 def namefile(name, it):
     return name+'_'+str(it).zfill(6)+'.png'
 
-def export(data, txtfile):
-    line=str(data)+'\n'
+def export_data(data, txtfile): # Exporting data 
+    txtfile.write(str(data[0]))
+    txtfile.write('&')
+    txtfile.write(str(data[1]))
+    txtfile.write('\n')
+    txtfile.flush()
+    os.fsync(txtfile.fileno())
+    
+def export_literal(data, txtfile): # Write data directly.
+    line=str(data)
     txtfile.write(line)
     txtfile.flush()
     os.fsync(txtfile.fileno())
+    
