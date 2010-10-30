@@ -7,7 +7,7 @@ import shutil
 
 ver='Silenus v.2.2.1'
 
-def asking_file(databasefile):
+def asking_file(databasefile): # Creating saving data file.
     try:
         db=open(databasefile, 'r')
         db.close()
@@ -57,7 +57,7 @@ def asking_file(databasefile):
             databasefile=open(databasefile, 'w')
             return databasefile
 
-        else: raise 'Fatal error'           # This shouldn't happen.
+        else: raise 'Fatal file handling error'           # This shouldn't happen.
 
 def ask_overwrite():
     print
