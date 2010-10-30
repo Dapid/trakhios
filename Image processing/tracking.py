@@ -52,10 +52,7 @@ top=203
 print
 print 'Starting'
 t3=time()
-#imgf=importer(namecode, 0)
-#plt.imshow(imgf)
-#show()
-#raise "Ended"
+
 
 for it in xrange(bottom, top+1):    # TODO: Iterate until fail.
     frame=importer(namecode, it)
