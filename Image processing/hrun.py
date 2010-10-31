@@ -12,12 +12,10 @@ step_tol=1
 
 
 def find_center(x0, image, tol):
-    x1=find_center_step(x0, image, tol)
-    it=0
     for p in xrange(maxit):
-        x2=find_center_step(x1, image, tol)
-        if linalg.norm(x1-x2)<step_tol: break
-        else: x1=x2
+        x1=find_center_step(x0, image, tol)
+        if linalg.norm(x0-x1)<step_tol: break
+        else: x0=x1
     return x2
 
     
