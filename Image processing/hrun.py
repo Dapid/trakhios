@@ -16,7 +16,7 @@ def find_center(x0, image, tol):
         x1=find_center_step(x0, image, tol)
         if linalg.norm(x0-x1)<step_tol: break
         else: x0=x1
-    return x2
+    return x1
 
     
 def find_center_step(x0, image, tol):
