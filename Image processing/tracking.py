@@ -65,7 +65,7 @@ print 'Finished'
 print
 print 'Time spent:'
 print str(t1-t0), 's importing modules.'
-print str(t3-t2), 's setting up and compilling (user-input time excluded).'
+print str(t3-t2), 's setting up and compiling (user-input time excluded).'
 print str(t4-t3), 's iterating, what means',str((t4-t3)/(top-bottom)) ,'s each frame.'
 print
 print 'That makes a total of',str(t4-t2+t1-t0) ,'s, or', str((t4-t2+t1-t0)/(top-bottom)), 's per frame.'
