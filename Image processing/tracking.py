@@ -55,7 +55,7 @@ for it in xrange(bottom, top+1):    # TODO: Iterate until fail.
     frame=importer(namecode, it)
     for k in xrange(len(centers)):
         centers[k]=hrun.find_center(centers[k], frame, tol)
-        silenus.export_data(centers[k], dbfile)
+    silenus.export_data(centers, dbfile)
     silenus.export_literal('\n', dbfile)
     print it,
 dbfile.close()

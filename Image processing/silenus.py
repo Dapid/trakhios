@@ -100,16 +100,40 @@ def namefile(name, it):
     return name+'_'+str(it).zfill(6)+'.png'
 
 def export_data(data, txtfile): # Exporting data 
-    txtfile.write(str(data[0]))
-    txtfile.write('&')
-    txtfile.write(str(data[1]))
-    txtfile.write('\n')
+    "Export the coordinates of every center per fotogram."
+    "The numbers are written in a row, separated by commas."
+    for i in xrange(len(data)):
+        for j in data[i]:
+            txtfile.write(str(j))
+            txtfile.write(',')
+    #txtfile.write(str(data[1]))
+    #txtfile.write('\n')
     txtfile.flush()
     os.fsync(txtfile.fileno())
     
 def export_literal(data, txtfile): # Write data directly.
+    "Writes data directly to file."
     line=str(data)
     txtfile.write(line)
     txtfile.flush()
     os.fsync(txtfile.fileno())
     
+def import_data(txtfile):
+    "Importes data from file"
+    fil=open(txtfile)
+    data=fil.readlines()
+    fil.close()
+    for i in xrange(len(data)):
+        data[i]=data[i].split(",")[:-1]
+    data2=[]
+    it=0
+    k=-1    # To start with 0
+    for i in xrange(len(data)):
+        data2.append([])
+        for j in xrange(len(data[i])):
+            if it%2==0:
+                data2[i].append([])
+                k+=1
+            data2[-1][-1].append(float(data[i][j]))
+            it+=1
+    return data2
