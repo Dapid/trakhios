@@ -6,7 +6,7 @@ import silenus
 'Hrun, an intelectual barbarian, is the intelligence core of Trakhios.'
 'He will analize each frame looking for trackable points.'
 
-ver='Hrun v.2 b'
+ver='Hrun v.3'
 maxit=5
 step_tol=1
 
@@ -53,3 +53,41 @@ def find_center_step(x0, image, tol):
         val=silenus.readpix(x, y, image)
     y2=y
     return array([(x1+x2)*0.5, (y1+y2)*0.5])
+
+def relax(lis, r):
+    'Promediates over a series of points.'  #TODO
+    return lis  # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    if r==0:        # Nothing to do
+        return lis
+    
+    lis2=[]
+    lis3=[]
+    centers=len(lis)
+    points=len(lis[0])-2*r
+    
+    for i in xrange(points):
+        lis3.append([])
+    for i in xrange(centers):
+        lis2.append(lis3)
+    del(lis3)
+    
+    for i in xrange(centers):
+        for j in xrange(points):
+            lis2[i][j]=promediate(lis[i][j:j+2*r], r)
+    return lis2
+
+def promediate(lis, n):
+    x=[x[0] for x in lis]
+    y=[x[1] for x in lis]
+    
+    return [sum(x)/n,sum(y)/n]
+    
+def add(lis1, lis2):
+    'Sum two lists'
+    lis=[]
+    for i in xrange(len(lis1)):
+        lis.append(list1[i]+list2[i])
+    
+    
+    

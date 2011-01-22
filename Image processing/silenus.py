@@ -6,7 +6,7 @@ import os
 ''
 'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
 
-ver='Silenus v.2.2.1'
+ver='Silenus v.3'
 
 def asking_file(databasefile): # Creating saving data file.
     try:
