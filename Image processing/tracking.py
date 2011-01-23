@@ -1,7 +1,7 @@
 # Importing
 from __future__ import division
 from time import time
-print 'Tracking. Developing version.'
+print 'Tracking. Developing alpha version.'
 print
 print 'Importing'
 
@@ -41,8 +41,8 @@ psyco.full()
 
 # Parameters
 namecode='try1'
-bottom=0
-top=203
+bottom=850
+top=2279
 
 
 # Iterating

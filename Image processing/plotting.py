@@ -1,7 +1,7 @@
 # Importing
 from __future__ import division
 from time import time
-print 'Plotting data. Developing version.'
+print 'Plotting data. Developing alpha version.'
 print
 print 'Importing'
 
@@ -39,7 +39,9 @@ for frame in data:
     for i in xrange(ncenters):
         centers[i].append(frame[i])
 
-centers=hrun.relax(centers, 5)
+#centers=hrun.relax(centers, 5)
+
+
 
 # Generate plotting
 for i in xrange(len(centers)):
@@ -47,13 +49,15 @@ for i in xrange(len(centers)):
     ax=fig.add_subplot(111)
     point=centers[i]
     
-    plt.scatter([x[0] for x in point], [x[1] for x in point], alpha=0.4)   
-    plt.plot([x[0] for x in point], [x[1] for x in point], alpha=0.3)
-    
-    ax.set_title('Center '+str(i+1)+".")
-    plt.xlabel('px')
+    #plt.plot([x[0] for x in point], [x[1] for x in point], alpha=0.3) 
+    #plt.scatter([x[0] for x in point], [x[1] for x in point], alpha=0.4)  
+    plt.plot(range(len(point)), [x[0] for x in point], alpha=0.6)
+    #plt.scatter(range(len(point)), [x[1] for x in point], alpha=0.4)   
+
+    ax.set_title('Center '+str(i+1)+", dumped oscillation.")
+    plt.xlabel('time')
     plt.ylabel('px')
-    plt.savefig(str(i)+'th.png')
+    plt.savefig('X-coord_'+str(i+1)+'.png')
     
 print "End."
 plt.show()
