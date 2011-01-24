@@ -87,7 +87,14 @@ def add(lis1, lis2):
     'Sum two lists'
     lis=[]
     for i in xrange(len(lis1)):
-        lis.append(list1[i]+list2[i])
-    
-    
-    
+        lis.append(lis1[i]+lis2[i])
+    return lis
+
+def normalize(lis):
+    m=0
+    for i in lis:
+        m+=i
+    m=m/len(lis)
+    for i in xrange(len(lis)):
+        lis[i]-=m
+    return lis

@@ -23,9 +23,14 @@ print
 print 'Using', silenus.ver, 'and', hrun.ver
 print
 
+t1=time()
+psyco.full()
+t2=time()
+
 # Parameters
 dbfilename='data.txt'
 
+print "Importing and formatting"
 # Load data
 data=silenus.import_data(dbfilename)
 
@@ -40,24 +45,80 @@ for frame in data:
         centers[i].append(frame[i])
 
 #centers=hrun.relax(centers, 5)
-
+t3=time()
 
 
 # Generate plotting
+print "Plotting."
+colors=['r', 'b', 'g', 'c', 'y']
 for i in xrange(len(centers)):
-    fig=plt.figure(i)
+    fc=i
+    fig=plt.figure(fc)
     ax=fig.add_subplot(111)
     point=centers[i]
     
     #plt.plot([x[0] for x in point], [x[1] for x in point], alpha=0.3) 
     #plt.scatter([x[0] for x in point], [x[1] for x in point], alpha=0.4)  
-    plt.plot(range(len(point)), [x[0] for x in point], alpha=0.6)
+    plt.plot(range(len(point)), [x[0] for x in point], alpha=0.6, color=colors[i])
     #plt.scatter(range(len(point)), [x[1] for x in point], alpha=0.4)   
 
-    ax.set_title('Center '+str(i+1)+", dumped oscillation.")
+    ax.set_title('Spring point '+str(i+1)+", dumped oscillation.")
     plt.xlabel('time')
     plt.ylabel('px')
     plt.savefig('X-coord_'+str(i+1)+'.png')
-    
-print "End."
+
+fc+=1
+fig=plt.figure(fc)
+ax=fig.add_subplot(111)
+
+
+#for i in xrange(len(centers)):
+#    point=centers[i]
+#    x_coord=[x[0] for x in point]
+#    hrun.normalize(x_coord)
+#    plt.plot(range(len(point)), x_coord, colors[i], alpha=0.3)
+#ax.set_title('Both centers, normalized')
+#plt.xlabel('time')
+#plt.ylabel('px')
+#plt.savefig('X-coord_both_normalized.png')
+
+for i in xrange(len(centers)):
+    point=centers[i]
+    x_coord=[x[0] for x in point]
+    x_coord=hrun.normalize(x_coord)
+    plt.plot(range(len(point)), x_coord, colors[i], alpha=0.3)
+ax.set_title('Spring, all control points.')
+plt.xlabel('time')
+plt.ylabel('px')
+plt.savefig('X-coord_spring_all.png')
+
+fc+=1
+fig=plt.figure(fc)
+ax=fig.add_subplot(111)
+
+point=centers[0]
+x_total=[x[0] for x in point]
+x_total=hrun.normalize(x_total)
+for i in xrange(1, len(centers)):
+    point=centers[i]
+    x_coord=[x[0] for x in point]
+
+    x_coord=hrun.normalize(x_coord)
+    x_total=hrun.add(x_coord, x_total)
+
+plt.plot(range(len(point)), x_total, alpha=0.6)
+ax.set_title('All spring, normalized')
+plt.xlabel('time')
+plt.ylabel('px')
+plt.savefig('Average.png')
+
+t4=time()
+print 'Finished'
+print
+print 'Time spent:'
+print str(t1-t0), 's importing modules.'
+print str(t2-t1), 's compiling.'
+print str(t3-t2), 's loading and reformatting data.'
+print str(t4-t3), 's iterating.'
+print
 plt.show()
