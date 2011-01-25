@@ -30,10 +30,10 @@ def importer(name, it):
 t1=time()
 
 # Setting up
-#tol=0.7
-#centers=[array([150,380]),array([520, 374])]
-tol=0.13
-centers=[array([327,151]),array([437, 176]),array([555,180]),array([686, 168]),array([788,137])]
+tol=0.7
+centers=[array([150,380]),array([520, 374])]
+#tol=0.13
+#centers=[array([327,151]),array([437, 176]),array([555,180]),array([686, 168]),array([788,137])]
 dbfilename='data.txt'
 
 dbfile=silenus.asking_file(dbfilename)
@@ -42,9 +42,9 @@ t2=time()
 psyco.full()
 
 # Parameters
-namecode='Try2'
-bottom=197
-top=6015
+namecode='try1'
+bottom=0
+top=203
 
 
 # Iterating
