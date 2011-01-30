@@ -11,7 +11,9 @@ maxit=5
 step_tol=1
 
 
-def find_center(x0, image, tol):
+def find_center(x0, image, tol, step_tol=step_tol):
+    'Finds the center of the marker in the image, starting from x0.'
+    'Calls find_center_step repeteadly until converged criterion is satisfied.'
     for p in xrange(maxit):
         x1=find_center_step(x0, image, tol)
         if linalg.norm(x0-x1)<step_tol: break
@@ -20,18 +22,20 @@ def find_center(x0, image, tol):
 
     
 def find_center_step(x0, image, tol):
+    'Next step for find_center.'
+    'Looks for a new center starting from x0, iterating once.'
     x=x0[0]
     y=x0[1]
     
-    val=silenus.readpix(x,y, image)
-    while val>tol:
+    val=silenus.readpix(x,y,image)  # Going up in x coordinate.
+    while val>tol:                  # Until edge is found.
         x+=1
         val=silenus.readpix(x,y, image)
     x1=x
     
     x=x0[0]
         
-    val=silenus.readpix(x, y, image)
+    val=silenus.readpix(x,y,image)  # Same, going down.
     while val>tol:
         x-=1
         val=silenus.readpix(x,y, image)
@@ -39,10 +43,10 @@ def find_center_step(x0, image, tol):
 
     x=x0[0]
 
-    val=silenus.readpix(x, y, image)
+    val=silenus.readpix(x,y,image)  # Analog process, for y coordinate.
     while val>tol:
         y+=1
-        val=silenus.readpix(x, y, image)
+        val=silenus.readpix(x,y,image)
     y1=y
     
     y=x0[1]
@@ -52,10 +56,12 @@ def find_center_step(x0, image, tol):
         y-=1
         val=silenus.readpix(x, y, image)
     y2=y
-    return array([(x1+x2)*0.5, (y1+y2)*0.5])
+    return array([(x1+x2)*0.5, (y1+y2)*0.5])    
+    # The result is the mean value for each center,
+    # as corresponding to
 
 def relax(lis, r):
-    'Promediates over a series of points.'  #TODO
+    'Promediates over a series of points in order to reduce noise.'  #TODO
     return lis  # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     if r==0:        # Nothing to do
@@ -91,10 +97,12 @@ def add(lis1, lis2):
     return lis
 
 def normalize(lis):
+    'Displace numbers in a list, now its mean is 0.'
     m=0
     for i in lis:
         m+=i
     m=m/len(lis)
-    for i in xrange(len(lis)):
+    
+    for i in xrange(len(lis)): # Could be list comprehension.
         lis[i]-=m
     return lis

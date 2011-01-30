@@ -9,6 +9,9 @@ import os
 ver='Silenus v.3'
 
 def asking_file(databasefile): # Creating saving data file.
+    'Checks whether the exporting file exits.'
+    'If so, it can save a copy or overwrite.'
+    
     try:
         db=open(databasefile, 'r')
         db.close()
@@ -81,6 +84,8 @@ def ask_overwrite():
     return overwrite, name
    
 def readpix(x,y, image):
+    'Reads the (x,y) pixel of the image.'
+    'It is dimension safe, raising an error if coordinates are not valid.'
     n=len(image)
     m=len(image[0])
     if x<0 or y<0 or x>m or y>n: raise 'DimensionError. The object is outside the field.'
@@ -91,12 +96,13 @@ def readpix(x,y, image):
         #return mean(val)
         return val[0]
 
-def mean(lista):
+def mean(lis):
     s=0
-    for i in lista: s+=i
-    return s/len(lista)
+    for i in lis: s+=i
+    return s/len(lis)
 
 def namefile(name, it):
+    'Generates the successive name files, Vegas format.'
     return name+'_'+str(it).zfill(6)+'.png'
 
 def export_data(data, txtfile): # Exporting data 
@@ -113,6 +119,7 @@ def export_data(data, txtfile): # Exporting data
     
 def export_literal(data, txtfile): # Write data directly.
     "Writes data directly to file."
+    'Used for line breaks.'
     line=str(data)
     txtfile.write(line)
     txtfile.flush()
