@@ -114,8 +114,10 @@ def export_data(data, txtfile): # Exporting data
             txtfile.write(',')
     #txtfile.write(str(data[1]))
     #txtfile.write('\n')
-    txtfile.flush()
-    os.fsync(txtfile.fileno())
+    #txtfile.flush()
+    #os.fsync(txtfile.fileno())
+    
+    #TODO: document why not flushing here.
     
 def export_literal(data, txtfile): # Write data directly.
     "Writes data directly to file."
