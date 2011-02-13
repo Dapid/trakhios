@@ -31,6 +31,7 @@ def importer(name, it):
 t1=time()
 
 # Setting up
+psyco.full()
 config = ConfigParser.ConfigParser()
 config.read('config.ini')
 
@@ -42,7 +43,7 @@ dbfilename=config.get(su, 'dbfilename')
 dbfile=silenus.asking_file(dbfilename)
 
 t2=time()    
-psyco.full()
+
 
 # Parameters
 par='Parameters'
