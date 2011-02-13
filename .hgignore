@@ -5,3 +5,4 @@ glob:Image processing/data*.txt
 glob:.pydevproject
 glob:Image processing/Other data/*
 glob:Image processing/Other results/*
+glob:Image processing/config.ini
