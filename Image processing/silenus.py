@@ -1,12 +1,18 @@
 from __future__ import division
 import shutil
 import os
+import ConfigParser
 
 'Silenus was an old servant of the Cyclops.'
 ''
 'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
 
 ver='Silenus v.3'
+
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
+change_matrix=eval(config.get('Silenus', 'matrix'))
+            # This is actually a 1D vector. I know.
 
 def asking_file(databasefile): # Creating saving data file.
     'Checks whether the exporting file exits.'
@@ -82,7 +88,15 @@ def ask_overwrite():
             else: print 'Command unknown. Please, type y/n.',
     except IOError: overwrite=True
     return overwrite, name
-   
+
+def mix_channels(val, lis=change_matrix):
+    """Mix the channels according to a previously matrix"""
+    ret=[0,0,0]
+    for i in xrange(3):
+        ret[i]=val[i]*lis[i]
+    return sum(ret)
+    
+
 def readpix(x,y, image):
     'Reads the (x,y) pixel of the image.'
     'It is dimension safe, raising an error if coordinates are not valid.'
@@ -93,8 +107,7 @@ def readpix(x,y, image):
     if len(val)==1:
         return val
     else:
-        #return mean(val)
-        return val[0]
+        return mix_channels(val)
 
 def mean(lis):
     s=0
