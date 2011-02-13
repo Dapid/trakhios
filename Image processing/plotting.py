@@ -14,6 +14,7 @@ import numpy as np
 from numpy import array, dot, linalg, asarray
 import psyco
 import os
+import ConfigParser
 
 import silenus
 import hrun
@@ -27,8 +28,12 @@ t1=time()
 psyco.full()
 t2=time()
 
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
+
 # Parameters
-dbfilename='data.txt'
+dbfilename=config.get('Setting up', 'dbfilename')
+mode=int(config.get('Plotting', 'mode'))
 
 print "Importing and formatting"
 # Load data
@@ -47,70 +52,75 @@ for frame in data:
 #centers=hrun.relax(centers, 5)
 t3=time()
 
-
 # Generate plotting
 print "Plotting."
-colors=['r', 'b', 'g', 'c', 'y']
-for i in xrange(len(centers)):
-    fc=i
+if mode==1:
+    fc=1
+    colors=['r', 'b']
+    
     fig=plt.figure(fc)
     ax=fig.add_subplot(111)
-    point=centers[i]
+    for i in xrange(len(centers)):
+        point=centers[i]
+        x_coord=[x[0] for x in point]
+        hrun.normalize(x_coord)
+        plt.plot(range(len(point)), x_coord, colors[i])
+    ax.set_title('Both pendulums, normalized')
+    plt.xlabel('Time (AU)')
+    plt.ylabel('px')
+    plt.savefig('X-coord_both_normalized.png')
     
-    #plt.plot([x[0] for x in point], [x[1] for x in point], alpha=0.3) 
-    #plt.scatter([x[0] for x in point], [x[1] for x in point], alpha=0.4)  
-    plt.plot(range(len(point)), [x[0] for x in point], alpha=0.6, color=colors[i])
-    #plt.scatter(range(len(point)), [x[1] for x in point], alpha=0.4)   
-
-    ax.set_title('Spring point '+str(i+1)+", dumped oscillation.")
+    
+if mode==2:
+    colors=['r', 'b', 'g', 'c', 'y']
+    for i in xrange(len(centers)):
+        fc=i
+        fig=plt.figure(fc)
+        ax=fig.add_subplot(111)
+        point=centers[i]
+          
+        plt.plot(range(len(point)), [x[0] for x in point], alpha=0.6, color=colors[i])
+    
+        ax.set_title('Spring point '+str(i+1)+", dumped oscillation.")
+        plt.xlabel('time')
+        plt.ylabel('px')
+        plt.savefig('X-coord_'+str(i+1)+'.png')
+    
+    
+    fc+=1
+    fig=plt.figure(fc)
+    ax=fig.add_subplot(111)
+    
+    for i in xrange(len(centers)):
+        point=centers[i]
+        x_coord=[x[0] for x in point]
+        x_coord=hrun.normalize(x_coord)
+        plt.plot(range(len(point)), x_coord, colors[i], alpha=0.3)
+    ax.set_title('Spring, all control points.')
     plt.xlabel('time')
     plt.ylabel('px')
-    plt.savefig('X-coord_'+str(i+1)+'.png')
-
-fc+=1
-fig=plt.figure(fc)
-ax=fig.add_subplot(111)
-
-
-#for i in xrange(len(centers)):
-#    point=centers[i]
-#    x_coord=[x[0] for x in point]
-#    hrun.normalize(x_coord)
-#    plt.plot(range(len(point)), x_coord, colors[i], alpha=0.3)
-#ax.set_title('Both centers, normalized')
-#plt.xlabel('time')
-#plt.ylabel('px')
-#plt.savefig('X-coord_both_normalized.png')
-
-for i in xrange(len(centers)):
-    point=centers[i]
-    x_coord=[x[0] for x in point]
-    x_coord=hrun.normalize(x_coord)
-    plt.plot(range(len(point)), x_coord, colors[i], alpha=0.3)
-ax.set_title('Spring, all control points.')
-plt.xlabel('time')
-plt.ylabel('px')
-plt.savefig('X-coord_spring_all.png')
-
-fc+=1
-fig=plt.figure(fc)
-ax=fig.add_subplot(111)
-
-point=centers[0]
-x_total=[x[0] for x in point]
-x_total=hrun.normalize(x_total)
-for i in xrange(1, len(centers)):
-    point=centers[i]
-    x_coord=[x[0] for x in point]
-
-    x_coord=hrun.normalize(x_coord)
-    x_total=hrun.add(x_coord, x_total)
-
-plt.plot(range(len(point)), x_total, alpha=0.6)
-ax.set_title('All spring, normalized')
-plt.xlabel('time')
-plt.ylabel('px')
-plt.savefig('Average.png')
+    plt.savefig('X-coord_spring_all.png')
+    
+    
+    fc+=1
+    fig=plt.figure(fc)
+    ax=fig.add_subplot(111)
+    
+    point=centers[0]
+    x_total=[x[0] for x in point]
+    x_total=hrun.normalize(x_total)
+    for i in xrange(1, len(centers)):
+        point=centers[i]
+        x_coord=[x[0] for x in point]
+    
+        x_coord=hrun.normalize(x_coord)
+        x_total=hrun.add(x_coord, x_total)
+    
+    plt.plot(range(len(point)), x_total, alpha=0.6)
+    ax.set_title('All spring points, normalized')
+    plt.xlabel('time')
+    plt.ylabel('px')
+    plt.savefig('Average.png')
 
 t4=time()
 print 'Finished'

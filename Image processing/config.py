@@ -6,8 +6,9 @@ config = ConfigParser.ConfigParser()
 inifile = open('config.ini','w')
 
 mode=1
-top=1093
-bottom=849
+bottom=850
+top=900
+
 
 if mode==1:
     tol=0.7
@@ -32,6 +33,14 @@ config.add_section(par)
 config.set(par, 'namecode', 'try1')
 config.set(par, 'bottom', bottom)
 config.set(par, 'top', top)
+
+sil='Silenus'
+config.add_section(sil)
+config.set(sil, 'matrix', (0.334,0.334,0.334, 0))
+
+plot='Plotting'
+config.add_section(plot)
+config.set(plot, 'mode', mode)
 
 # Write
 config.write(inifile)
