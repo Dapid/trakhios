@@ -1,0 +1,10 @@
+glob:*.pyc
+glob:*Thumbs.db
+glob:Image processing/data/*.png
+glob:Image processing/data*.txt
+glob:.pydevproject
+glob:Image processing/Other data/*
+glob:Image processing/Other results/*
+glob:Image processing/config.ini
+glob:MPlayer/*
+glob:vids/*
