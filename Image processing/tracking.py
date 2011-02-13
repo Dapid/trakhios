@@ -15,6 +15,7 @@ from numpy import array, dot, linalg, asarray
 from pylab import show, savefig
 import psyco
 import os
+import ConfigParser
 
 import silenus
 import hrun
@@ -30,11 +31,13 @@ def importer(name, it):
 t1=time()
 
 # Setting up
-tol=0.7
-centers=[array([150,380]),array([520, 374])]
-#tol=0.13
-#centers=[array([327,151]),array([437, 176]),array([555,180]),array([686, 168]),array([788,137])]
-dbfilename='data.txt'
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
+
+su='Setting up'
+tol=float(config.get(su, 'tol'))
+centers=eval(config.get(su, 'centers'))
+dbfilename=config.get(su, 'dbfilename')
 
 dbfile=silenus.asking_file(dbfilename)
 
@@ -42,9 +45,10 @@ t2=time()
 psyco.full()
 
 # Parameters
-namecode='try1'
-bottom=0
-top=203
+par='Parameters'
+namecode=config.get(par, 'namecode')
+top=int(config.get(par, 'top'))
+bottom=int(config.get(par, 'bottom'))
 
 
 # Iterating
