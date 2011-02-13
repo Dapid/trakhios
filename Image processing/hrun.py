@@ -3,8 +3,8 @@ from numpy import array, linalg
 
 import silenus
 
-'Hrun, an intelectual barbarian, is the intelligence core of Trakhios.'
-'He will analize each frame looking for trackable points.'
+"""Hrun, an intelectual barbarian, is the intelligence core of Trakhios.
+He will analize each frame looking for trackable points."""
 
 ver='Hrun v.3'
 maxit=5
@@ -43,8 +43,8 @@ def find_center_step(x0, image, tol):
 
     x=x0[0]
 
-    val=silenus.readpix(x,y,image)  # Analog process, for y coordinate.
-    while val>tol:
+    val=silenus.readpix(x,y,image)  # Analog process,
+    while val>tol:                  # for y coordinate.
         y+=1
         val=silenus.readpix(x,y,image)
     y1=y
@@ -58,7 +58,7 @@ def find_center_step(x0, image, tol):
     y2=y
     return array([(x1+x2)*0.5, (y1+y2)*0.5])    
     # The result is the mean value for each center,
-    # as corresponding to
+    # as corresponding to a circumference.
 
 def relax(lis, r):
     'Promediates over a series of points in order to reduce noise.'  #TODO

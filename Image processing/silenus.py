@@ -21,7 +21,8 @@ def asking_file(databasefile): # Creating saving data file.
     try:
         db=open(databasefile, 'r')
         db.close()
-        print 'The exporting file already exists. Overwrite? (y/n)',
+        print 'The exporting file already exists. ',
+        print 'Overwrite? (y/n)',
         while True:
             over=raw_input()
             if over=='y' or over=='yes':
@@ -38,7 +39,9 @@ def asking_file(databasefile): # Creating saving data file.
         databasefile=open(databasefile, 'w')
         return databasefile
     else:
-        print'Do you want to save a copy of the existing data file? (y/n)',
+        print'Do you want to save a copy of',
+        print' the existing data file? (y/n)',
+        
         while True:
             cop=raw_input()
             if cop=='y' or cop=='yes':
@@ -51,7 +54,10 @@ def asking_file(databasefile): # Creating saving data file.
             
         if copy==False:
             print
-            raw_input("It seems you don't want it to be executed. An error will be raised to end the program. Press enter.")
+            print "It seems you don't want it to be ",
+            print "executed. An error will be raised",
+            print " to end the program. ",
+            raw_input('Press enter.')
             raise 'FileHandlingError'
 
         elif copy==True:
@@ -60,14 +66,16 @@ def asking_file(databasefile): # Creating saving data file.
                 if overwrite==True:
                         break
                 if overwrite==False:
-                    print 'Try again or press Ctrl+C to terminate.'
+                    print 'Try again or press Ctrl+C',
+                    print ' to terminate.'
                     print
                     
             shutil.copy(databasefile, name)
             databasefile=open(databasefile, 'w')
             return databasefile
 
-        else: raise 'Fatal file handling error'           # This shouldn't happen.
+        else: raise 'Fatal file handling error' 
+                                 # This shouldn't happen.
 
 def ask_overwrite():
     print
@@ -91,6 +99,7 @@ def ask_overwrite():
 
 def mix_channels(val, lis=change_matrix):
     """Mix the channels according to a previously matrix"""
+    
     ret=[0,0,0]
     for i in xrange(3):
         ret[i]=val[i]*lis[i]
@@ -98,11 +107,14 @@ def mix_channels(val, lis=change_matrix):
     
 
 def readpix(x,y, image):
-    'Reads the (x,y) pixel of the image.'
-    'It is dimension safe, raising an error if coordinates are not valid.'
+    """Reads the (x,y) pixel of the image.
+    It is dimension safe;
+    raises an error if coordinates are not valid."""
+    
     n=len(image)
     m=len(image[0])
-    if x<0 or y<0 or x>m or y>n: raise 'DimensionError. The object is outside the field.'
+    if x<0 or y<0 or x>m or y>n:
+     raise 'DimensionError. The object is outside the field.'
     val=image[y][x]
     if len(val)==1:
         return val

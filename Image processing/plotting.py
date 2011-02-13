@@ -54,7 +54,7 @@ t3=time()
 
 # Generate plotting
 print "Plotting."
-if mode==1:
+if mode==1:             # Mode 1 is for pendulum.
     fc=1
     colors=['r', 'b']
     
@@ -71,7 +71,7 @@ if mode==1:
     plt.savefig('X-coord_both_normalized.png')
     
     
-if mode==2:
+if mode==2:             # Mode 2 is for spring.
     colors=['r', 'b', 'g', 'c', 'y']
     for i in xrange(len(centers)):
         fc=i
@@ -79,9 +79,11 @@ if mode==2:
         ax=fig.add_subplot(111)
         point=centers[i]
           
-        plt.plot(range(len(point)), [x[0] for x in point], alpha=0.6, color=colors[i])
-    
-        ax.set_title('Spring point '+str(i+1)+", dumped oscillation.")
+        plt.plot(range(len(point)), [x[0] for x in point],
+                  alpha=0.6, color=colors[i])
+        
+        ax.set_title('Spring point '+str(i+1
+                        )+", dumped oscillation.")
         plt.xlabel('time')
         plt.ylabel('px')
         plt.savefig('X-coord_'+str(i+1)+'.png')
@@ -95,7 +97,8 @@ if mode==2:
         point=centers[i]
         x_coord=[x[0] for x in point]
         x_coord=hrun.normalize(x_coord)
-        plt.plot(range(len(point)), x_coord, colors[i], alpha=0.3)
+        plt.plot(range(len(point)), x_coord, colors[i],
+                  alpha=0.3)
     ax.set_title('Spring, all control points.')
     plt.xlabel('time')
     plt.ylabel('px')
