@@ -58,7 +58,7 @@ print 'Starting'
 t3=time()
 
 
-for it in xrange(bottom, top+1):    # TODO: Iterate until fail.
+for it in xrange(bottom, top+1):    # TODO: Iterate until fail
     frame=importer(namecode, it)
     for k in xrange(len(centers)):
         centers[k]=hrun.find_center(centers[k], frame, tol)

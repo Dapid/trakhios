@@ -3,8 +3,9 @@ from numpy import array, linalg
 
 import silenus
 
-"""Hrun, an intelectual barbarian, is the intelligence core of Trakhios.
-He will analize each frame looking for trackable points."""
+"""Hrun, an intelectual barbarian, is Trakhios' intelligence
+core. He will analize each frame following trackable points.
+"""
 
 ver='Hrun v.3'
 maxit=5
@@ -12,8 +13,12 @@ step_tol=1
 
 
 def find_center(x0, image, tol, step_tol=step_tol):
-    'Finds the center of the marker in the image, starting from x0.'
-    'Calls find_center_step repeteadly until converged criterion is satisfied.'
+    """Finds the center of the marker in the image,
+    starting from x0.
+    It calls find_center_step repeteadly,
+    until converged criterion is satisfied.
+    """
+    
     for p in xrange(maxit):
         x1=find_center_step(x0, image, tol)
         if linalg.norm(x0-x1)<step_tol: break
@@ -22,8 +27,11 @@ def find_center(x0, image, tol, step_tol=step_tol):
 
     
 def find_center_step(x0, image, tol):
-    'Next step for find_center.'
-    'Looks for a new center starting from x0, iterating once.'
+    """Next step for find_center.
+    It looks for a new center starting from x0,
+    iterating just once.
+    """
+    
     x=x0[0]
     y=x0[1]
     
@@ -61,7 +69,10 @@ def find_center_step(x0, image, tol):
     # as corresponding to a circumference.
 
 def relax(lis, r):
-    'Promediates over a series of points in order to reduce noise.'  #TODO
+    """Promediates over a series of points
+     in order to reduce noise.
+    """                             # TODO
+    
     return lis  # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     if r==0:        # Nothing to do
@@ -90,14 +101,16 @@ def promediate(lis, n):
     return [sum(x)/n,sum(y)/n]
     
 def add(lis1, lis2):
-    'Sum two lists'
+    """Sum two lists"""
+    
     lis=[]
     for i in xrange(len(lis1)):
         lis.append(lis1[i]+lis2[i])
     return lis
 
 def normalize(lis):
-    'Displace numbers in a list, now its mean is 0.'
+    """Displace numbers in a list, now its mean is 0."""
+    
     m=0
     for i in lis:
         m+=i

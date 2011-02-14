@@ -3,9 +3,11 @@ import shutil
 import os
 import ConfigParser
 
-'Silenus was an old servant of the Cyclops.'
-''
-'He is here to assist Trakios in non-scientific heavy tasks, like file handling, as well as small uglying-code work.'
+"""Silenus was an old servant of the Cyclops.
+
+He is here to assist Trakios in non-scientific heavy tasks,
+like file handling, as well as small uglying-code work.
+"""
 
 ver='Silenus v.3'
 
@@ -15,8 +17,9 @@ change_matrix=eval(config.get('Silenus', 'matrix'))
             # This is actually a 1D vector. I know.
 
 def asking_file(databasefile): # Creating saving data file.
-    'Checks whether the exporting file exits.'
-    'If so, it can save a copy or overwrite.'
+    """Checks whether the exporting file exits.
+    If so, it can save a copy or overwrite.
+    """
     
     try:
         db=open(databasefile, 'r')
@@ -108,8 +111,9 @@ def mix_channels(val, lis=change_matrix):
 
 def readpix(x,y, image):
     """Reads the (x,y) pixel of the image.
-    It is dimension safe;
-    raises an error if coordinates are not valid."""
+    It is dimension safe: it raises an error 
+    if coordinates are not valid.
+    """
     
     n=len(image)
     m=len(image[0])
@@ -127,12 +131,16 @@ def mean(lis):
     return s/len(lis)
 
 def namefile(name, it):
-    'Generates the successive name files, Vegas format.'
+    """Generates the successive name files, Vegas format."""
+    
     return name+'_'+str(it).zfill(6)+'.png'
-
+    #TODO: choose mode: Vegas, MPlayer... if needed.
+    
 def export_data(data, txtfile): # Exporting data 
-    "Export the coordinates of every center per fotogram."
-    "The numbers are written in a row, separated by commas."
+    """Export the coordinates of every center per fotogram.
+    The numbers are written in a row, separated by commas.
+    """
+    
     for i in xrange(len(data)):
         for j in data[i]:
             txtfile.write(str(j))
@@ -145,15 +153,18 @@ def export_data(data, txtfile): # Exporting data
     #TODO: document why not flushing here.
     
 def export_literal(data, txtfile): # Write data directly.
-    "Writes data directly to file."
-    'Used for line breaks.'
+    """Writes data directly to file.
+    Used for line breaks.
+    """
+    
     line=str(data)
     txtfile.write(line)
     txtfile.flush()
     os.fsync(txtfile.fileno())
     
 def import_data(txtfile):
-    "Importes data from file"
+    """Importes data from file"""
+    
     fil=open(txtfile)
     data=fil.readlines()
     fil.close()
