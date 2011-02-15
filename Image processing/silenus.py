@@ -96,7 +96,7 @@ def ask_overwrite():
             elif over=='n' or over=='no':
                 overwrite=False
                 break
-            else: print 'Command unknown. Please, type y/n.',
+            else: print 'Option unknown. Please, type y/n.',
     except IOError: overwrite=True
     return overwrite, name
 
