@@ -107,13 +107,10 @@ def promediate(lis, n):
     
     return [sum(x)/n,sum(y)/n]
     
-def add(lis1, lis2):
-    """Sum two lists"""
-    
-    lis=[]
-    for i in xrange(len(lis1)):
-        lis.append(lis1[i]+lis2[i])
-    return lis
+def add_lists(lis1, lis2):
+    """Sum two lists."""
+    return [i+j for i,j in zip(list1, list2)]
+
 
 def normalize(lis):
     """Displace numbers in a list, now its mean is 0."""
