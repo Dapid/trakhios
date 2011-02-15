@@ -163,7 +163,7 @@ def export_literal(data, txtfile): # Write data directly.
     os.fsync(txtfile.fileno())
     
 def import_data(txtfile):
-    """Importes data from file"""
+    """Imports data from file"""
     
     fil=open(txtfile)
     data=fil.readlines()
