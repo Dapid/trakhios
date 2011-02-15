@@ -17,7 +17,7 @@ change_matrix=eval(config.get('Silenus', 'matrix'))
             # This is actually a 1D vector. I know.
 
 def asking_file(databasefile): # Creating saving data file.
-    """Checks whether the exporting file exits.
+    """Check whether the exporting file exits.
     If so, it can save a copy or overwrite.
     """
     
@@ -110,7 +110,8 @@ def mix_channels(val, lis=change_matrix):
     
 
 def readpix(x,y, image):
-    """Reads the (x,y) pixel of the image.
+    """Read the (x,y) pixel of the image.
+    
     It is dimension safe: it raises an error 
     if coordinates are not valid.
     """
@@ -131,7 +132,7 @@ def mean(lis):
     return s/len(lis)
 
 def namefile(name, it):
-    """Generates the successive name files, Vegas format."""
+    """Generate the successive name files, Vegas format."""
     
     return name+'_'+str(it).zfill(6)+'.png'
     #TODO: choose mode: Vegas, MPlayer... if needed.
@@ -153,8 +154,8 @@ def export_data(data, txtfile): # Exporting data
     #TODO: document why not flushing here.
     
 def export_literal(data, txtfile): # Write data directly.
-    """Writes data directly to file.
-    Used for line breaks.
+    """Write data directly to file.
+    Use it for line breaks.
     """
     
     line=str(data)
@@ -163,7 +164,7 @@ def export_literal(data, txtfile): # Write data directly.
     os.fsync(txtfile.fileno())
     
 def import_data(txtfile):
-    """Imports data from file"""
+    """Import data from file"""
     
     fil=open(txtfile)
     data=fil.readlines()
