@@ -30,6 +30,13 @@ def find_center_step(x0, image, tol):
     """Next step for find_center.
     Look for a new center starting from x0,
     iterate just once.
+    
+    Follow the column chord until finding the edge.
+    Same with the row chord.
+    The new center is the intersection of the bisections.
+    
+    The edge is considered when the value of the pixel is
+    under tol.  
     """
     
     x=x0[0]
