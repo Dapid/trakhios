@@ -9,7 +9,7 @@ He is here to assist Trakios in non-scientific heavy tasks,
 like file handling, as well as small uglying-code work.
 """
 
-ver='Silenus v.3'
+__version__='Silenus v.3'
 
 config = ConfigParser.ConfigParser()
 config.read('config.ini')

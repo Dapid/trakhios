@@ -7,7 +7,7 @@ import silenus
 core. He will analize each frame following trackable points.
 """
 
-ver='Hrun v.3'
+__version__='Hrun v.4'
 maxit=5
 step_tol=1
 
@@ -28,8 +28,8 @@ def find_center(x0, image, tol, step_tol=step_tol):
     
 def find_center_step(x0, image, tol):
     """Next step for find_center.
-    It looks for a new center starting from x0,
-    iterating just once.
+    Look for a new center starting from x0,
+    iterate just once.
     """
     
     x=x0[0]

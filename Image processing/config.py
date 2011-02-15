@@ -1,6 +1,8 @@
 import ConfigParser
 from numpy import array
 
+__version__='Config v.0.1'
+
 config = ConfigParser.ConfigParser()
 
 inifile = open('config.ini','w')

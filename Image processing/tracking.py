@@ -21,7 +21,7 @@ import silenus
 import hrun
 
 print
-print 'Using', silenus.ver, 'and', hrun.ver
+print 'Using', silenus.__version__, 'and', hrun.__version__
 print
 
 def importer(name, it):

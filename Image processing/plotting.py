@@ -21,7 +21,7 @@ import hrun
 
 
 print
-print 'Using', silenus.ver, 'and', hrun.ver
+print 'Using', silenus.__version__, 'and', hrun.__version__
 print
 
 t1=time()
