@@ -69,8 +69,8 @@ def asking_file(databasefile): # Creating saving data file.
                 if overwrite==True:
                         break
                 if overwrite==False:
-                    print 'Try again or press Ctrl+C',
-                    print ' to terminate.'
+                    print 'Try again or press Ctrl+c',
+                    print 'to terminate.'
                     print
                     
             shutil.copy(databasefile, name)
@@ -90,6 +90,7 @@ def ask_overwrite():
         print 'The file already exists. Overwrite? (y/n)',
         while True:
             over=raw_input()
+            over.lower()
             if over=='y' or over=='yes':
                 overwrite=True
                 break
@@ -133,7 +134,6 @@ def mean(lis):
 
 def namefile(name, it):
     """Generate the successive name files, Vegas format."""
-    
     return name+'_'+str(it).zfill(6)+'.png'
     #TODO: choose mode: Vegas, MPlayer... if needed.
     
@@ -165,7 +165,6 @@ def export_literal(data, txtfile): # Write data directly.
     
 def import_data(txtfile):
     """Import data from file"""
-    
     fil=open(txtfile)
     data=fil.readlines()
     fil.close()
