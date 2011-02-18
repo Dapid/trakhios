@@ -7,73 +7,84 @@ import silenus
 core. He will analize each frame following trackable points.
 """
 
-__version__='Hrun v.4'
+__version__='Hrun v.5'
 maxit=5
 step_tol=1
 
-
-def find_center(x0, image, tol, step_tol=step_tol):
-    """Finds the center of the marker in the image,
-    starting from x0.
-    It calls find_center_step repeteadly,
-    until converged criterion is satisfied.
-    """
-    
-    for p in xrange(maxit):
-        x1=find_center_step(x0, image, tol)
-        if linalg.norm(x0-x1)<step_tol: break
-        else: x0=x1
-    return x1
-
-    
-def find_center_step(x0, image, tol):
-    """Next step for find_center.
-    Look for a new center starting from x0,
-    iterate just once.
-    
-    Follow the column chord until finding the edge.
-    Same with the row chord.
-    The new center is the intersection of the bisections.
-    
-    The edge is considered when the value of the pixel is
-    under tol.  
-    """
-    
-    x=x0[0]
-    y=x0[1]
-    
-    val=silenus.readpix(x,y,image)  # Going up in x coordinate.
-    while val>tol:                  # Until edge is found.
-        x+=1
-        val=silenus.readpix(x,y, image)
-    x1=x
-    
-    x=x0[0]
+class find_center:
+    def __init__(self, x0, image, tol, step_tol=step_tol,
+                  maxit=maxit):
+        self.x0=x0
+        self.image=image
+        self.tol=tol
+        self.step_tol=step_tol
+        self.maxit=maxit
+        self.x1=None
+        self.find_center()
         
-    val=silenus.readpix(x,y,image)  # Same, going down.
-    while val>tol:
-        x-=1
-        val=silenus.readpix(x,y, image)
-    x2=x
+        
+    def find_center(self):
+        """Finds the center of the marker in the image,
+        starting from x0.
+        It calls find_center_step repeteadly,
+        until converged criterion is satisfied.
+        """
+        for p in xrange(maxit):
+            self.x1=self.find_center_step()
+            if linalg.norm(self.x0-self.x1)<self.step_tol: break
+            else: self.x0=self.x1
+        #return self.x1
 
-    x=x0[0]
-
-    val=silenus.readpix(x,y,image)  # Analog process,
-    while val>tol:                  # for y coordinate.
-        y+=1
-        val=silenus.readpix(x,y,image)
-    y1=y
+    def find_center_step(self):
+        """Next step for find_center.
+        Look for a new center starting from x0,
+        iterate just once.
+        
+        Follow the column chord until finding the edge.
+        Same with the row chord.
+        The new center is the intersection of the bisections.
+        
+        The edge is considered when the value of the pixel is
+        under tol.  
+        """
+ 
+        x=self.x0[0]
+        y=self.x0[1]
+        
+        val=silenus.readpix(x,y,self.image)  # Going up in x coordinate.
+        while val>self.tol:                  # Until edge is found.
+            x+=1
+            val=silenus.readpix(x,y,self.image)
+        x1=x
+        
+        x=self.x0[0]
+            
+        val=silenus.readpix(x,y,self.image)  # Same, going down.
+        while val>self.tol:
+            x-=1
+            val=silenus.readpix(x,y,self.image)
+        x2=x
     
-    y=x0[1]
+        x=self.x0[0]
+    
+        val=silenus.readpix(x,y,self.image)  # Analog process,
+        while val>self.tol:                  # for y coordinate.
+            y+=1
+            val=silenus.readpix(x,y,self.image)
+        y1=y
+        
+        y=self.x0[1]
+    
+        val=silenus.readpix(x,y,self.image)
+        while val>self.tol:
+            y-=1
+            val=silenus.readpix(x,y,self.image)
+        y2=y
+        return array([(x1+x2)*0.5, (y1+y2)*0.5])    
+        # The result is the mean value for each center,
+        # as corresponding to a circumference.
 
-    val=silenus.readpix(x, y, image)
-    while val>tol:
-        y-=1
-        val=silenus.readpix(x, y, image)
-    y2=y
-    return array([(x1+x2)*0.5, (y1+y2)*0.5])    
-    # The result is the mean value for each center,
-    # as corresponding to a circumference.
+
 
 def relax(lis, r):
     """Promediates over a series of points
