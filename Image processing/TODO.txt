@@ -1,12 +1,4 @@
-Hrun:
-logic to classes, global variables to class variables
-
-explain things like "tol", "step_tol"
-x0 is a list of coordinates, non intuitive 		# I take it as \vec x_0, for me it is. => DOCUMENT
-
-
 Silenus:
-Check existance: refactorize and simplify. Look "access" and "os.exists"
 
 raise "string" deprecated
 
