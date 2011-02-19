@@ -133,7 +133,7 @@ def mean(lis):
 
 def namefile(name, it):
     """Generate the successive name files, Vegas format."""
-    return name+'_'+str(it).zfill(6)+'.png'
+    return name+str(it).zfill(6)+'.png'
     #TODO: choose mode: Vegas, MPlayer... if needed.
     
 def export_data(data, txtfile): # Exporting data 

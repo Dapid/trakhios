@@ -7,9 +7,9 @@ config = ConfigParser.ConfigParser()
 
 inifile = open('config.ini','w')
 
-mode=1
-bottom=850
-top=900
+mode=1          # 1 for pendulums, 2 for spring.
+bottom=54
+top=136
 
 maxit=5
 step_tol=1
@@ -17,7 +17,8 @@ step_tol=1
 if mode==1:
     tol=0.7
     centers=[array([150,380]),array([520, 374])]
-    matrix=(0.334,0.334,0.334, 0)
+    matrix=(-0.3,-0.3,1.6, 0)
+    #matrix=(0.334,0.334,0.334, 0)
 
 if mode==2:
     tol=0.13
@@ -35,7 +36,8 @@ config.set(su, 'dbfilename', 'data.txt')
 
 par='Parameters'
 config.add_section(par)
-config.set(par, 'namecode', 'try1')
+#config.set(par, 'namecode', 'try1_')
+config.set(par, 'namecode', '00')
 config.set(par, 'bottom', bottom)
 config.set(par, 'top', top)
 
