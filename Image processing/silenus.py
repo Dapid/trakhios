@@ -1,6 +1,7 @@
 from __future__ import division
 import shutil
 import os
+import os.path
 import ConfigParser
 
 """Silenus was an old servant of the Cyclops.
@@ -21,9 +22,7 @@ def asking_file(databasefile): # Creating saving data file.
     If so, it can save a copy or overwrite.
     """
     
-    try:
-        db=open(databasefile, 'r')
-        db.close()
+    if os.path.exists(databasefile):
         print 'The exporting file already exists. ',
         print 'Overwrite? (y/n)',
         while True:
@@ -34,9 +33,9 @@ def asking_file(databasefile): # Creating saving data file.
             elif over=='n' or over=='no':
                 overwrite=False
                 break
-            else: print 'Command unknown. Please, type y/n.',
+            else: print 'Option unknown. Please, type y/n.',
 
-    except IOError: overwrite=True
+    else: overwrite=True
 
     if overwrite==True:
         databasefile=open(databasefile, 'w')
@@ -53,7 +52,7 @@ def asking_file(databasefile): # Creating saving data file.
             elif cop=='n' or cop=='no':
                 copy=False
                 break
-            else: print 'Command unknown. Please, type y/n.',
+            else: print 'Option unknown. Please, type y/n.',
             
         if copy==False:
             print
@@ -82,7 +81,7 @@ def asking_file(databasefile): # Creating saving data file.
 
 def ask_overwrite():
     print
-    name=raw_input('Please, enter the new name of the file: ')
+    name=raw_input('Please, enter the new file name: ')
     name=name+'.txt'
     try:
         db=open(name, 'r')
