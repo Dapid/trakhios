@@ -16,6 +16,16 @@ maxit=int(config.get('Hrun', 'maxit'))
 step_tol=eval(config.get('Hrun', 'step_tol'))
 
 class find_center:
+    """Takes x0 as the start point center and the new one is
+    stored in self.x1. Note that x0 and x1 are both vectors,
+    not components.
+    
+    Parameters:
+      self.image: the image matrix is going to be analysed.
+      self.tol: cutoff value. Under, means outside. 
+      self.step_tol: convergence criterion by distance.
+      self.maxit: convergence forced if reached.
+    """
     def __init__(self, x0, image, tol, step_tol=step_tol,
                   maxit=maxit):
         self.x0=x0
