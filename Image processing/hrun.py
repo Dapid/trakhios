@@ -1,5 +1,6 @@
 from __future__ import division
 from numpy import array, linalg
+import ConfigParser
 
 import silenus
 
@@ -8,8 +9,11 @@ core. He will analize each frame following trackable points.
 """
 
 __version__='Hrun v.5'
-maxit=5
-step_tol=1
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
+
+maxit=int(config.get('Hrun', 'maxit'))
+step_tol=eval(config.get('Hrun', 'step_tol'))
 
 class find_center:
     def __init__(self, x0, image, tol, step_tol=step_tol,

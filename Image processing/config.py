@@ -11,6 +11,8 @@ mode=1
 bottom=850
 top=900
 
+maxit=5
+step_tol=1
 
 if mode==1:
     tol=0.7
@@ -40,6 +42,11 @@ config.set(par, 'top', top)
 sil='Silenus'
 config.add_section(sil)
 config.set(sil, 'matrix', matrix)
+
+hr='Hrun'
+config.add_section(hr)
+config.set(hr, 'maxit', maxit)
+config.set(hr, 'step_tol', step_tol)
 
 plot='Plotting'
 config.add_section(plot)
