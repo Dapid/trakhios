@@ -1,6 +1,7 @@
 from __future__ import division
 from numpy import array, linalg
 import ConfigParser
+import math
 
 import silenus
 
@@ -130,7 +131,7 @@ def promediate(lis, n):
     x=[x[0] for x in lis]
     y=[x[1] for x in lis]
     
-    return [sum(x)/n,sum(y)/n]
+    return [math.fsum(x)/n,math.fsum(y)/n]
     
 def add_lists(lis1, lis2):
     """Sum two lists."""
