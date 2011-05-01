@@ -101,7 +101,7 @@ class find_center:
 
 
 
-def relax(lis, r):
+def relax(lis, r=0):
     """Promediates over a series of points
      in order to reduce noise.
     """                             # TODO
