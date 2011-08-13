@@ -101,6 +101,28 @@ class find_center:
         # as corresponding to a circumference.
 
 
+class trackingPoint():
+    def __init__(self, center, datafile):
+        self.center=center
+        self.tol=tol
+        self.datafile=datafile
+        
+        # To compute
+        self.radius=None
+        self.vel=None
+
+    def find_center(self):
+        self.center=find_center(self.center,
+                                 self.frame, self.tol).x1
+    def guess_center(self):
+        pass
+    
+    def export_data(self):
+        silenus.export_data(self.center, self.datafile)
+    
+    def run(self):
+        self.find_center()
+        self.export_data()
 
 def relax(lis, r=0):
     """Promediates over a series of points

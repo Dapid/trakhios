@@ -35,30 +35,6 @@ def importer(name, it, folder):
     #                silenus.namefile(name, it)))
     return image
 
-class trackingPoint():
-    def __init__(self, center, datafile):
-        self.center=center
-        self.tol=tol
-        self.datafile=datafile
-        
-        # To compute
-        self.radius=None
-        self.vel=None
-
-    def find_center(self):
-        self.center=hrun.find_center(self.center,
-                                 self.frame, self.tol).x1
-    def guess_center(self):
-        pass
-    
-    def export_data(self):
-        silenus.export_data(self.center, self.datafile)
-    
-    def run(self):
-        self.find_center()
-        self.export_data()
-
-
 # Setting up
 psyco.full()
 config = ConfigParser.ConfigParser()
@@ -89,8 +65,8 @@ print
 print 'Starting'
 t3=time()
 
-for center in centers:
-    trackingPoint(center)
+
+centers=[hrun.trackingPoint(center) for center in centers]
 
 for it in xrange(bottom, top+1):    # TODO: Iterate until fail
     frame=silenus.mix_channels(importer(namecode, it, folder))
