@@ -101,14 +101,11 @@ def ask_overwrite():
     except IOError: overwrite=True
     return overwrite, name
 
-def mix_channels(val, lis=change_matrix):
-    """Mix the channels according to a previously matrix"""
+def mix_channels(img, lis=change_matrix):
+    """Mix the channels"""
     
-    ret=[0,0,0]
-    for i in xrange(3):
-        ret[i]=val[i]*lis[i]
-    return sum(ret)
-    
+    return img[:,:,0]*lis[0]+img[:,:,1]*lis[1]+img[:,:,2]*lis[2]
+  
 
 def readpix(x,y, image):
     """Read the (x,y) pixel of the image.

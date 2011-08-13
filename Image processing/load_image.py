@@ -13,44 +13,46 @@ def onclick(event):
         print np.array([event.xdata, event.ydata])
 
 class positions:
-    def __init__(self):
+    def __init__(self, m, n):
         self.centers=[]
+        self.m=m
+        self.n=n
     def onclick(self, event):
-        self.centers.append(np.array([event.xdata, event.ydata]))
+        x, y=(event.xdata, event.ydata)
+        if 0<=x and 0<=y and y<=self.m and x<=self.n:
+            self.centers.append(np.array([x, y]))
+            print 'Got that!' 
+        else:
+            print 'Invalid center. Try to click inside!'
 
 print 'Starting'
 img0=importer('00', 55)
 m=len(img0)
 n=len(img0[0])
-img=np.ones((m*n,), dtype=np.int)
-img.resize(m,n)
+
 print 'Mixing channels'
-for i in xrange(m):
-    for j in xrange(n):
-        img[i][j]=silenus.mix_channels(img0[i][j])
+
+img=silenus.mix_channels(img0)
 
 print 'Plotting'
-fig = plt.figure()
-ax = fig.add_subplot(212)
-plt.hist(img.flatten(), 256, range=(0.0,1.0), fc='k', ec='k')
+fig=plt.figure()
 
-ax = fig.add_subplot(211)
-cax=ax.imshow(img)
-fig.colorbar(cax)
+ax=fig.add_subplot(211)
+plt.title(r'$\mathrm{Image\ preview}$',size=30)
+imgplot=ax.imshow(img)
+imgplot.set_cmap('gist_gray')
+fig.colorbar(imgplot)
 
-cid = fig.canvas.mpl_connect('button_press_event', onclick)
+ax=fig.add_subplot(212)
+plt.title(r'$\mathrm{Histogram}$',size=15)
+plt.hist(img.flatten(), 256, fc='k', ec='k',
+         histtype='stepfilled')
+
+pos=positions(m,n)
+cid = fig.canvas.mpl_connect('button_press_event', pos.onclick)
 plt.show()
 fig.canvas.mpl_disconnect(cid)
-    
-#fig = plt.figure()
-#ax = fig.add_subplot(111)
-#ax.imshow(img)
-#
-#pos=positions
-#cid = fig.canvas.mpl_connect('button_press_event', pos.onclick)
-#
-#plt.show()
-#fig.canvas.mpl_disconnect(cid)
+
 
 print
 print 
