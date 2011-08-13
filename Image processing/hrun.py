@@ -10,7 +10,7 @@ import silenus
 core. He will analize each frame following trackable points.
 """
 
-__version__='Hrun v.5'
+__version__='Hrun v.6'
 config = ConfigParser.ConfigParser()
 config.read('config.ini')
 
