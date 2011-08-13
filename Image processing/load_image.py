@@ -1,8 +1,7 @@
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import matplotlib.image as mpimg
 import numpy as np
+import matplotlib
+import pylab as plt
+import matplotlib.image as mpimg
 
 import silenus
 

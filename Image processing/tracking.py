@@ -1,4 +1,3 @@
-# Importing
 from __future__ import division
 from time import time
 print 'Tracking. Developing alpha version.'
@@ -6,16 +5,15 @@ print
 print 'Importing'
 
 t0=time()
+import os
+import ConfigParser
+
 import matplotlib
 matplotlib.use('Agg')           # Backend.
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-from numpy import array, dot, linalg, asarray
-from pylab import show, savefig
 import psyco
-import os
-import ConfigParser
 
 import silenus
 import hrun

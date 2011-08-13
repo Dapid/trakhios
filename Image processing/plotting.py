@@ -6,16 +6,16 @@ print
 print 'Importing'
 
 t0=time()
+import os
+import ConfigParser
+
+import numpy as np
 import matplotlib
 matplotlib.interactive(True)
 matplotlib.use('TkAgg')           # Backend.
-import matplotlib.pyplot as plt
+import pylab as plt
 import matplotlib.image as mpimg
-import numpy as np
-from numpy import array, dot, linalg, asarray
 import psyco
-import os
-import ConfigParser
 
 import silenus
 import hrun

@@ -1,7 +1,8 @@
 from __future__ import division
-from numpy import array, linalg
 import ConfigParser
 import math
+
+import numpy as np
 
 import silenus
 
@@ -46,7 +47,7 @@ class find_center:
         """
         for p in xrange(maxit):
             self.x1=self.find_center_step()
-            if linalg.norm(self.x0-self.x1)<self.step_tol: break
+            if np.linalg.norm(self.x0-self.x1)<self.step_tol: break
             else: self.x0=self.x1
         #return self.x1
 
@@ -95,7 +96,7 @@ class find_center:
             y-=1
             val=silenus.readpix(x,y,self.image)
         y2=y
-        return array([(x1+x2)*0.5, (y1+y2)*0.5])    
+        return np.array([(x1+x2)*0.5, (y1+y2)*0.5])    
         # The result is the mean value for each center,
         # as corresponding to a circumference.
 

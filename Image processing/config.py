@@ -1,5 +1,5 @@
 import ConfigParser
-from numpy import array
+import numpy as np
 
 __version__='Config v.0.1'
 
@@ -16,14 +16,14 @@ step_tol=1
 
 if mode==1:
     tol=0.7
-    centers=[array([150,380]),array([520, 374])]
+    centers=[np.array([150,380]),np.array([520, 374])]
     matrix=(-0.3,-0.3,1.6, 0)
     #matrix=(0.334,0.334,0.334, 0)
 
 if mode==2:
     tol=0.13
-    centers=[array([327,151]),array([437, 176]),
-         array([555,180]),array([686, 168]),array([788,137])]
+    centers=[np.np.array([327,151]),np.array([437, 176]),
+         np.array([555,180]),np.array([686, 168]),np.array([788,137])]
     matrix=(0.334,0.334,0.334, 0)
 
 # set a number of parameters
