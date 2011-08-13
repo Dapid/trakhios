@@ -62,7 +62,7 @@ class trackingPoint():
         until converged criterion is satisfied.
         """
         
-        self.xold=x0
+        self.xold=self.x0
         for p in xrange(self.maxit):
             self.x1=self.find_center_step(image)
             dist=self.x0-self.x1
@@ -127,17 +127,17 @@ class trackingPoint():
         pass
     
     def export_data(self):
-        silenus.export_data(self.center, self.datafile)
+        silenus.export_data(self.x0, self.datafile)
     
     def velocity(self):
-        self.vel=x0-xold
+        self.vel=self.x0-self.xold
         
-    def run(self):
+    def run(self, image):
         """One function to control them all, one function to wrap them all,
         One function to summon them all and the next center unveil.
         """
         
-        self.find_center()
+        self.find_center(image)
         self.export_data()
         self.velocity()
 

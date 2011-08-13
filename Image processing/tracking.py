@@ -22,8 +22,6 @@ print
 print 'Using', silenus.__version__, 'and', hrun.__version__
 print
 
-t1=time()
-
 def importer(name, it, folder):
     """Loads an image
     
@@ -35,6 +33,7 @@ def importer(name, it, folder):
     #                silenus.namefile(name, it)))
     return image
 
+t1=time()
 # Setting up
 psyco.full()
 config = ConfigParser.ConfigParser()
@@ -46,8 +45,6 @@ centers=eval(config.get(su, 'centers'))
 dbfilename=config.get(su, 'dbfilename')
 n=len(centers)
 
-centers=[hrun.trackingPoint(np.array(center)) for center in centers]
-                # Converts to arrays and calls the wrapping class.
 dbfile=silenus.asking_file(dbfilename)
 
 t2=time()    
@@ -63,14 +60,16 @@ folder=config.get(par, 'folder')
 # Iterating
 print
 print 'Starting'
+centers=[hrun.trackingPoint(np.array(center),
+         dbfile, tol) for center in centers]
+        # Converts to arrays and calls the wrapping class.
+ 
 t3=time()
-
-
+               
 for it in xrange(bottom, top+1):    # TODO: Iterate until fail
     frame=silenus.mix_channels(importer(namecode, it, folder))
-#    for k in xrange(n):
-#        centers[k]=hrun.find_center(centers[k], frame, tol).x1
-#    silenus.export_data(centers, dbfile)
+    for center in centers:
+        center.run(frame)
     silenus.export_literal('\n', dbfile)
     print it,
 dbfile.close()
