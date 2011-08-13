@@ -17,41 +17,55 @@ config.read('config.ini')
 maxit=int(config.get('Hrun', 'maxit'))
 step_tol=eval(config.get('Hrun', 'step_tol'))
 
-class findCenter:
-    """Takes x0 as the start point center and the new one is
-    stored in self.x1. Note that x0 and x1 are both vectors,
-    not components.
-    
-    Parameters:
-      self.image: the image matrix is going to be analyzed.
-      self.tol: cutoff value. Under, means outside. 
-      self.step_tol: convergence criterion by distance.
-      self.maxit: convergence forced if reached.
-    """
-    def __init__(self, x0, image, tol, step_tol=step_tol,
-                  maxit=maxit):
+
+class trackingPoint():
+    def __init__(self, x0, datafile, tol,
+                 step_tol=step_tol, maxit=maxit):
+        """
+        Each point, with all the logic needed to track it
+        and store the data. 
+        
+        Parameters:
+          x0: the initial value
+          datafile: where to save the data
+          tol: cutoff value. Under it, considered outside. 
+          step_tol: convergence criterion by distance.
+          maxit: convergence forced if reached.
+        
+        Variables
+          self.radius
+          self.vel
+          self.x1
+        
+        Note on notation: x0 and x1 are vectors, not components.
+        """
+        
         self.x0=x0
-        self.image=image
+        self.tol=tol
+        self.datafile=datafile
+        
         self.tol=tol
         self.step_tol=step_tol
         self.maxit=maxit
-        self.x1=None
-        self.find_center()
-        
-        
-    def find_center(self):
+              
+        # To compute
+        self.radius=None
+        self.vel=None
+        self.xold=None 
+
+    def find_center(self, image):
         """Finds the center of the marker in the image,
         starting from x0.
-        It calls find_center_step repeteadly,
+        It calls find_center_step repeatedly,
         until converged criterion is satisfied.
         """
-        for p in xrange(maxit):
-            self.x1=self.find_center_step()
+        self.xold=x0
+        for p in xrange(self.maxit):
+            self.x1=self.find_center_step(image)
             if np.linalg.norm(self.x0-self.x1)<self.step_tol: break
             else: self.x0=self.x1
-        #return self.x1
 
-    def find_center_step(self):
+    def find_center_step(self, image):
         """Next step for find_center.
         Look for a new center starting from x0,
         iterate just once.
@@ -67,62 +81,53 @@ class findCenter:
         x=self.x0[0]
         y=self.x0[1]
         
-        val=silenus.readpix(x,y,self.image)  # Going up in x coordinate.
+        val=silenus.readpix(x,y,image)  # Going up in x coordinate.
         while val>self.tol:                  # Until edge is found.
             x+=1
-            val=silenus.readpix(x,y,self.image)
+            val=silenus.readpix(x,y,image)
         x1=x
         
         x=self.x0[0]
             
-        val=silenus.readpix(x,y,self.image)  # Same, going down.
+        val=silenus.readpix(x,y,image)  # Same, going down.
         while val>self.tol:
             x-=1
-            val=silenus.readpix(x,y,self.image)
+            val=silenus.readpix(x,y,image)
         x2=x
     
         x=self.x0[0]
     
-        val=silenus.readpix(x,y,self.image)  # Analog process,
+        val=silenus.readpix(x,y,image)  # Analog process,
         while val>self.tol:                  # for y coordinate.
             y+=1
-            val=silenus.readpix(x,y,self.image)
+            val=silenus.readpix(x,y,image)
         y1=y
         
         y=self.x0[1]
     
-        val=silenus.readpix(x,y,self.image)
+        val=silenus.readpix(x,y,image)
         while val>self.tol:
             y-=1
-            val=silenus.readpix(x,y,self.image)
+            val=silenus.readpix(x,y,image)
         y2=y
         return np.array([(x1+x2)*0.5, (y1+y2)*0.5])    
         # The result is the mean value for each center,
         # as corresponding to a circumference.
 
-
-class trackingPoint():
-    def __init__(self, center, datafile):
-        self.center=center
-        self.tol=tol
-        self.datafile=datafile
         
-        # To compute
-        self.radius=None
-        self.vel=None
-
-    def find_center(self):
-        self.center=findCenter(self.center,
-                                 self.frame, self.tol).x1
     def guess_center(self):
         pass
     
     def export_data(self):
         silenus.export_data(self.center, self.datafile)
     
+    def velocity(self):
+        self.vel=x0-xold
+        
     def run(self):
         self.find_center()
         self.export_data()
+        self.velocity()
 
 def relax(lis, r=0):
     """Promediates over a series of points
