@@ -4,6 +4,8 @@ import os
 import os.path
 import ConfigParser
 
+
+
 """Silenus was an old servant of the Cyclops.
 
 He is here to assist Trakios in non-scientific heavy tasks,
@@ -16,6 +18,7 @@ config = ConfigParser.ConfigParser()
 config.read('config.ini')
 change_matrix=eval(config.get('Silenus', 'matrix'))
             # This is actually a 1D vector. I know.
+
 
 def asking_file(databasefile): # Creating saving data file.
     """Check whether the exporting file exits.

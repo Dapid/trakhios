@@ -22,10 +22,6 @@ print
 print 'Using', silenus.__version__, 'and', hrun.__version__
 print
 
-def importer(name, it):
-    image=mpimg.imread('data/'+silenus.namefile(name, it))
-    return image
-
 t1=time()
 
 # Setting up
@@ -43,6 +39,15 @@ centers=[np.array(each) for each in centers]
 
 
 dbfile=silenus.asking_file(dbfilename)
+
+def importer(name, it, folder):
+    """Loads an image
+    
+    It is not in silenus in order to avoid
+    multiple matplotlib imports"""
+    image=mpimg.imread(os.path.join(folder,
+                    silenus.namefile(name, it)))
+    return image
 
 class tracking_point():
     def __init__(self, center, frame,datafile):
@@ -76,16 +81,15 @@ par='Parameters'
 namecode=config.get(par, 'namecode')
 top=int(config.get(par, 'top'))
 bottom=int(config.get(par, 'bottom'))
-
+folder=config.get(par, 'folder')
 
 # Iterating
 print
 print 'Starting'
 t3=time()
 
-
 for it in xrange(bottom, top+1):    # TODO: Iterate until fail
-    frame=importer(namecode, it)
+    frame=importer(namecode, it, folder)
     for k in xrange(n):
         centers[k]=hrun.find_center(centers[k], frame, tol).x1
     silenus.export_data(centers, dbfile)
