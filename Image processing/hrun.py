@@ -32,7 +32,8 @@ class trackingPoint():
           step_tol: convergence criterion by distance.
           maxit: convergence forced if reached.
         
-        Variables
+        Other variables:
+          self.step_tol2: square of step_tol
           self.radius
           self.vel
           self.x1
@@ -46,6 +47,7 @@ class trackingPoint():
         
         self.tol=tol
         self.step_tol=step_tol
+        self.step_tol2=step_tol**2
         self.maxit=maxit
               
         # To compute
@@ -63,7 +65,8 @@ class trackingPoint():
         self.xold=x0
         for p in xrange(self.maxit):
             self.x1=self.find_center_step(image)
-            if np.linalg.norm(self.x0-self.x1)<self.step_tol: break
+            dist=self.x0-self.x1
+            if np.dot(dist, dist)<self.step_tol2: break
             else: self.x0=self.x1
 
     def find_center_step(self, image):
