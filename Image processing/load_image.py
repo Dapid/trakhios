@@ -20,7 +20,7 @@ class positions:
     def onclick(self, event):
         x, y=(event.xdata, event.ydata)
         if 0<=x and 0<=y and y<=self.m and x<=self.n:
-            self.centers.append(np.array([x, y]))
+            self.centers.append([x, y])
             print 'Got that!' 
         else:
             print 'Invalid center. Try to click inside!'

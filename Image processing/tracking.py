@@ -39,6 +39,9 @@ centers=eval(config.get(su, 'centers'))
 dbfilename=config.get(su, 'dbfilename')
 n=len(centers)
 
+centers=[np.array(each) for each in centers]
+
+
 dbfile=silenus.asking_file(dbfilename)
 
 class tracking_point():

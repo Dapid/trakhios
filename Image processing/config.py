@@ -16,14 +16,14 @@ step_tol=1
 
 if mode==1:
     tol=0.7
-    centers=[np.array([150,380]),np.array([520, 374])]
+    centers=[[150,380],[520, 374]]
     matrix=(-0.3,-0.3,1.6, 0)
     #matrix=(0.334,0.334,0.334, 0)
 
 if mode==2:
     tol=0.13
-    centers=[np.np.array([327,151]),np.array([437, 176]),
-         np.array([555,180]),np.array([686, 168]),np.array([788,137])]
+    centers=[[327,151],[437, 176],
+         [555,180],[686, 168],[788,137]]
     matrix=(0.334,0.334,0.334, 0)
 
 # set a number of parameters
