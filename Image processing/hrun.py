@@ -17,7 +17,7 @@ config.read('config.ini')
 maxit=int(config.get('Hrun', 'maxit'))
 step_tol=eval(config.get('Hrun', 'step_tol'))
 
-class find_center:
+class findCenter:
     """Takes x0 as the start point center and the new one is
     stored in self.x1. Note that x0 and x1 are both vectors,
     not components.
@@ -112,7 +112,7 @@ class trackingPoint():
         self.vel=None
 
     def find_center(self):
-        self.center=find_center(self.center,
+        self.center=findCenter(self.center,
                                  self.frame, self.tol).x1
     def guess_center(self):
         pass
