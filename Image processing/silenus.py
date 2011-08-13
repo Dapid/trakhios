@@ -122,13 +122,10 @@ def readpix(x,y, image):
     
     n=len(image)
     m=len(image[0])
-    if x<0 or y<0 or x>m or y>n:
-     raise 'DimensionError. The object is outside the field.'
-    val=image[y][x]
-    if len(val)==1:
-        return val
-    else:
-        return mix_channels(val)
+    try:
+        return image[y][x]
+    except IndexError:
+        raise IndexError('Pixel out of image')
 
 def mean(lis):
     s=0
