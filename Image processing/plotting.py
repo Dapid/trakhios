@@ -66,11 +66,12 @@ if mode==1:             # Mode 1 is for pendulum.
         x_coord=[x[0] for x in point]
         hrun.normalize(x_coord)
         plt.plot(range(len(point)), x_coord, colors[i])
-    ax.set_title('Both pendulums, normalized')
-    plt.xlabel('Time (AU)')
-    plt.ylabel('px')
+    ax.set_title(r'$\mathrm{Both\ pendulums,\ normalized}$',
+                  size=20)
+    plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
+    plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
     plt.savefig('X-coord_both_normalized.png')
-    plt.draw()
+    fig.canvas.set_window_title('Trakhios::Results') 
     
     
 if mode==2:             # Mode 2 is for spring.
@@ -78,6 +79,7 @@ if mode==2:             # Mode 2 is for spring.
     for i in xrange(len(centers)):
         fc=i
         fig=plt.figure(fc)
+        fig.canvas.set_window_title('Trakhios::Results') 
         ax=fig.add_subplot(111)
         point=centers[i]
           
@@ -86,14 +88,15 @@ if mode==2:             # Mode 2 is for spring.
         
         ax.set_title('Spring point '+str(i+1
                         )+", dumped oscillation.")
-        plt.xlabel('time')
-        plt.ylabel('px')
+        plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
+        plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
         plt.savefig('X-coord_'+str(i+1)+'.png')
 
     
     
     fc+=1
     fig=plt.figure(fc)
+    fig.canvas.set_window_title('Trakhios::Results') 
     ax=fig.add_subplot(111)
     
     for i in xrange(len(centers)):
@@ -103,14 +106,14 @@ if mode==2:             # Mode 2 is for spring.
         plt.plot(range(len(point)), x_coord, colors[i],
                   alpha=0.3)
     ax.set_title('Spring, all control points.')
-    plt.xlabel('time')
-    plt.ylabel('px')
+    plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
+    plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
     plt.savefig('X-coord_spring_all.png')
-
     
     
     fc+=1
     fig=plt.figure(fc)
+    fig.canvas.set_window_title('Trakhios::Results') 
     ax=fig.add_subplot(111)
     
     point=centers[0]
@@ -125,12 +128,12 @@ if mode==2:             # Mode 2 is for spring.
     
     plt.plot(range(len(point)), x_total, alpha=0.6)
     ax.set_title('All spring points, normalized')
-    plt.xlabel('time')
-    plt.ylabel('px')
+    plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
+    plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
     plt.savefig('Average.png')
 
 
-raw_input()
+
 t4=time()
 print 'Finished'
 print
