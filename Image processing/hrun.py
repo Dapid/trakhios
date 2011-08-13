@@ -23,7 +23,7 @@ class find_center:
     not components.
     
     Parameters:
-      self.image: the image matrix is going to be analysed.
+      self.image: the image matrix is going to be analyzed.
       self.tol: cutoff value. Under, means outside. 
       self.step_tol: convergence criterion by distance.
       self.maxit: convergence forced if reached.
