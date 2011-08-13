@@ -138,20 +138,18 @@ def namefile(name, it):
     #TODO: choose mode: Vegas, MPlayer... if needed.
     
 def export_data(data, txtfile): # Exporting data 
-    """Export the coordinates of every center per fotogram.
+    """Export the coordinates of one center per a frame.
     The numbers are written in a row, separated by commas.
+    
+    The file buffer is flushed on export_literal, after the
+    frame is completed and not here.
     """
     
-    for i in xrange(len(data)):
-        for j in data[i]:
-            txtfile.write(str(j))
+    for coordinate in data:
+            txtfile.write(str(coordinate))
             txtfile.write(',')
-    #txtfile.write(str(data[1]))
-    #txtfile.write('\n')
-    #txtfile.flush()
-    #os.fsync(txtfile.fileno())
+
     
-    #TODO: document why not flushing here.
     
 def export_literal(data, txtfile): # Write data directly.
     """Write data directly to file.
