@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib
 import pylab as plt
 import matplotlib.image as mpimg
@@ -9,9 +8,6 @@ def importer(name, it):
     print 'data/'+silenus.namefile(name, it)
     image=mpimg.imread('data/'+silenus.namefile(name, it))
     return image
-
-def onclick(event):
-        print np.array([event.xdata, event.ydata])
 
 class positions:
     def __init__(self, m, n):
