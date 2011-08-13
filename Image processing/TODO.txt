@@ -1,0 +1,14 @@
+Silenus:
+
+raise "string" deprecated
+
+ask_overwrite reencapsule
+
+
+Config object
+
+class config(object) :
+	def __init__(self) :
+		# carga fichero y pon sus datos en el diccionario "self._config"
+	def get(self, key) :
+		return self._config[key]

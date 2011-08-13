@@ -1,9 +1,10 @@
 # Importing
 from __future__ import division
 from time import time
-print 'Tracking. Developing alpha version.'
+print 'Tracking. v.0.1.'
 print
 print 'Importing'
+__version__='0.1'
 
 t0=time()
 import matplotlib
@@ -39,33 +40,8 @@ su='Setting up'
 tol=float(config.get(su, 'tol'))
 centers=eval(config.get(su, 'centers'))
 dbfilename=config.get(su, 'dbfilename')
-n=len(centers)
 
 dbfile=silenus.asking_file(dbfilename)
-
-class tracking_point():
-    def __init__(self, center, frame,datafile):
-        self.center=center
-        self.frame=frame
-        self.tol=tol
-        self.datafile=datafile
-        
-        # To compute
-        self.radius=None
-        self.vel=None
-
-    def find_center(self):
-        self.center=hrun.find_center(self.center,
-                                 self.frame, self.tol).x1
-    def guess_center(self):
-        pass
-    
-    def export_data(self):
-        silennus.export_data(self.center, self.datafile)
-    
-    def run(self):
-        self.find_center()
-        self.export_data()
 
 t2=time()    
 
@@ -85,7 +61,7 @@ t3=time()
 
 for it in xrange(bottom, top+1):    # TODO: Iterate until fail
     frame=importer(namecode, it)
-    for k in xrange(n):
+    for k in xrange(len(centers)):
         centers[k]=hrun.find_center(centers[k], frame, tol).x1
     silenus.export_data(centers, dbfile)
     silenus.export_literal('\n', dbfile)

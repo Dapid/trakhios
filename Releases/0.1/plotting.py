@@ -7,7 +7,6 @@ print 'Importing'
 
 t0=time()
 import matplotlib
-matplotlib.interactive(True)
 matplotlib.use('TkAgg')           # Backend.
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -70,7 +69,6 @@ if mode==1:             # Mode 1 is for pendulum.
     plt.xlabel('Time (AU)')
     plt.ylabel('px')
     plt.savefig('X-coord_both_normalized.png')
-    plt.draw()
     
     
 if mode==2:             # Mode 2 is for spring.
@@ -89,7 +87,6 @@ if mode==2:             # Mode 2 is for spring.
         plt.xlabel('time')
         plt.ylabel('px')
         plt.savefig('X-coord_'+str(i+1)+'.png')
-
     
     
     fc+=1
@@ -106,7 +103,6 @@ if mode==2:             # Mode 2 is for spring.
     plt.xlabel('time')
     plt.ylabel('px')
     plt.savefig('X-coord_spring_all.png')
-
     
     
     fc+=1
@@ -129,8 +125,6 @@ if mode==2:             # Mode 2 is for spring.
     plt.ylabel('px')
     plt.savefig('Average.png')
 
-
-raw_input()
 t4=time()
 print 'Finished'
 print

@@ -27,11 +27,10 @@ def asking_file(databasefile): # Creating saving data file.
         print 'Overwrite? (y/n)',
         while True:
             over=raw_input()
-            over.lower()
-            if over in ('y','yes'):
+            if over=='y' or over=='yes':
                 overwrite=True
                 break
-            elif over in ('n', 'no'):
+            elif over=='n' or over=='no':
                 overwrite=False
                 break
             else: print 'Option unknown. Please, type y/n.',
