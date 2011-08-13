@@ -6,6 +6,7 @@ import matplotlib.image as mpimg
 import silenus
 
 def importer(name, it):
+    print 'data/'+silenus.namefile(name, it)
     image=mpimg.imread('data/'+silenus.namefile(name, it))
     return image
 

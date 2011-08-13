@@ -105,9 +105,12 @@ def ask_overwrite():
     return overwrite, name
 
 def mix_channels(img, lis=change_matrix):
-    """Mix the channels"""
-    
-    return img[:,:,0]*lis[0]+img[:,:,1]*lis[1]+img[:,:,2]*lis[2]
+    """Mix the channels of the whole image"""
+    im2=img[:,:,0]*lis[0]
+    for i in xrange(1,len(img[0,0,:])):
+        im2+=img[:,:,i]*lis[i]
+        
+    return im2
   
 
 def readpix(x,y, image):

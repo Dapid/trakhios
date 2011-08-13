@@ -24,35 +24,20 @@ print
 
 t1=time()
 
-# Setting up
-psyco.full()
-config = ConfigParser.ConfigParser()
-config.read('config.ini')
-
-su='Setting up'
-tol=float(config.get(su, 'tol'))
-centers=eval(config.get(su, 'centers'))
-dbfilename=config.get(su, 'dbfilename')
-n=len(centers)
-
-centers=[np.array(each) for each in centers]
-
-
-dbfile=silenus.asking_file(dbfilename)
-
 def importer(name, it, folder):
     """Loads an image
     
     It is not in silenus in order to avoid
     multiple matplotlib imports"""
-    image=mpimg.imread(os.path.join(folder,
-                    silenus.namefile(name, it)))
+    
+    image=mpimg.imread(folder+os.sep+silenus.namefile(name, it))
+    #image=mpimg.imread(os.path.join(folder,
+    #                silenus.namefile(name, it)))
     return image
 
-class tracking_point():
-    def __init__(self, center, frame,datafile):
+class trackingPoint():
+    def __init__(self, center, datafile):
         self.center=center
-        self.frame=frame
         self.tol=tol
         self.datafile=datafile
         
@@ -67,11 +52,27 @@ class tracking_point():
         pass
     
     def export_data(self):
-        silennus.export_data(self.center, self.datafile)
+        silenus.export_data(self.center, self.datafile)
     
     def run(self):
         self.find_center()
         self.export_data()
+
+
+# Setting up
+psyco.full()
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
+
+su='Setting up'
+tol=float(config.get(su, 'tol'))
+centers=eval(config.get(su, 'centers'))
+dbfilename=config.get(su, 'dbfilename')
+n=len(centers)
+
+centers=[np.array(each) for each in centers]
+
+dbfile=silenus.asking_file(dbfilename)
 
 t2=time()    
 
@@ -88,8 +89,11 @@ print
 print 'Starting'
 t3=time()
 
+for center in centers:
+    trackingPoint(center)
+
 for it in xrange(bottom, top+1):    # TODO: Iterate until fail
-    frame=importer(namecode, it, folder)
+    frame=silenus.mix_channels(importer(namecode, it, folder))
     for k in xrange(n):
         centers[k]=hrun.find_center(centers[k], frame, tol).x1
     silenus.export_data(centers, dbfile)

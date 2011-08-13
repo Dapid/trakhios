@@ -8,7 +8,7 @@ config = ConfigParser.ConfigParser()
 inifile = open('config.ini','w')
 
 mode=1          # 1 for pendulums, 2 for spring.
-bottom=54
+bottom=55
 top=136
 
 maxit=5
