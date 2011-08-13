@@ -46,8 +46,8 @@ centers=eval(config.get(su, 'centers'))
 dbfilename=config.get(su, 'dbfilename')
 n=len(centers)
 
-centers=[np.array(each) for each in centers]
-
+centers=[hrun.trackingPoint(np.array(center)) for center in centers]
+                # Converts to arrays and calls the wrapping class.
 dbfile=silenus.asking_file(dbfilename)
 
 t2=time()    
@@ -66,13 +66,11 @@ print 'Starting'
 t3=time()
 
 
-centers=[hrun.trackingPoint(center) for center in centers]
-
 for it in xrange(bottom, top+1):    # TODO: Iterate until fail
     frame=silenus.mix_channels(importer(namecode, it, folder))
-    for k in xrange(n):
-        centers[k]=hrun.find_center(centers[k], frame, tol).x1
-    silenus.export_data(centers, dbfile)
+#    for k in xrange(n):
+#        centers[k]=hrun.find_center(centers[k], frame, tol).x1
+#    silenus.export_data(centers, dbfile)
     silenus.export_literal('\n', dbfile)
     print it,
 dbfile.close()
