@@ -59,6 +59,7 @@ class trackingPoint():
         It calls find_center_step repeatedly,
         until converged criterion is satisfied.
         """
+        
         self.xold=x0
         for p in xrange(self.maxit):
             self.x1=self.find_center_step(image)
@@ -116,6 +117,10 @@ class trackingPoint():
 
         
     def guess_center(self):
+        """NOT IMPLEMENTED
+        
+        Using previous information to get a better estimate of the new center.
+        """
         pass
     
     def export_data(self):
@@ -125,6 +130,10 @@ class trackingPoint():
         self.vel=x0-xold
         
     def run(self):
+        """One function to control them all, one function to wrap them all,
+        One function to summon them all and the next center unveil.
+        """
+        
         self.find_center()
         self.export_data()
         self.velocity()
