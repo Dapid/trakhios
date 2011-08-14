@@ -15,18 +15,15 @@ matplotlib.interactive(True)
 matplotlib.use('TkAgg')           # Backend.
 import pylab as plt
 import matplotlib.image as mpimg
-import psyco
 
 import silenus
 import hrun
-
 
 print
 print 'Using', silenus.__version__, 'and', hrun.__version__
 print
 
 t1=time()
-psyco.full()
 t2=time()
 
 config = ConfigParser.ConfigParser()
@@ -54,7 +51,7 @@ for frame in data:
 t3=time()
 
 # Generate plotting
-fps=25
+fps=30
 
 print "Plotting."
 if mode==1:             # Mode 1 is for pendulum.
@@ -67,12 +64,16 @@ if mode==1:             # Mode 1 is for pendulum.
         point=centers[i]
         x_coord=[x[0] for x in point]
         hrun.normalize(x_coord)
-        plt.plot(np.asarray(range(len(point)))/fps,
-                             x_coord, colors[i])
+        num=len(point)
+        plt.plot(np.asarray(range(num))/fps,
+                        x_coord, colors[i])
+        axis=list(plt.axis())                         # Axis adjustment
+        axis[1]=num/fps
+        plt.axis(axis)
     ax.set_title(r'$\mathrm{Both\ pendulums,\ normalized}$',
                   size=20)
     plt.xlabel(r'$\mathrm{Time\ }(s)$', size=15)
-    plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
+    plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$',size=15)
     plt.savefig('X-coord_both_normalized.png')
     fig.canvas.set_window_title('Trakhios::Results') 
     
@@ -88,6 +89,9 @@ if mode==2:             # Mode 2 is for spring.
           
         plt.plot(np.asarray(range(len(point)))/fps, [x[0] for x in point],
                   alpha=0.6, color=colors[i])
+        axis=list(plt.axis())                         # Axis adjustment
+        axis[1]=num/fps
+        plt.axis(axis)
         
         ax.set_title('Spring point '+str(i+1
                         )+", dumped oscillation.")
@@ -108,6 +112,10 @@ if mode==2:             # Mode 2 is for spring.
         x_coord=hrun.normalize(x_coord)
         plt.plot(np.asarray(range(len(point)))/fps, x_coord, colors[i],
                   alpha=0.3)
+        axis=list(plt.axis())                         # Axis adjustment
+        axis[1]=num/fps
+        plt.axis(axis)
+        
     ax.set_title('Spring, all control points.')
     plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
     plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
@@ -130,6 +138,9 @@ if mode==2:             # Mode 2 is for spring.
         x_total=hrun.add(x_coord, x_total)
     
     plt.plot(np.asarray(range(len(point)))/fps, x_total, alpha=0.6)
+    axis=list(plt.axis())                         # Axis adjustment
+    axis[1]=num/fps
+    plt.axis(axis)
     ax.set_title('All spring points, normalized')
     plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
     plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
