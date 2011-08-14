@@ -54,6 +54,8 @@ for frame in data:
 t3=time()
 
 # Generate plotting
+fps=25
+
 print "Plotting."
 if mode==1:             # Mode 1 is for pendulum.
     fc=1
@@ -65,10 +67,11 @@ if mode==1:             # Mode 1 is for pendulum.
         point=centers[i]
         x_coord=[x[0] for x in point]
         hrun.normalize(x_coord)
-        plt.plot(range(len(point)), x_coord, colors[i])
+        plt.plot(np.asarray(range(len(point)))/fps,
+                             x_coord, colors[i])
     ax.set_title(r'$\mathrm{Both\ pendulums,\ normalized}$',
                   size=20)
-    plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
+    plt.xlabel(r'$\mathrm{Time\ }(s)$', size=15)
     plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
     plt.savefig('X-coord_both_normalized.png')
     fig.canvas.set_window_title('Trakhios::Results') 
@@ -83,7 +86,7 @@ if mode==2:             # Mode 2 is for spring.
         ax=fig.add_subplot(111)
         point=centers[i]
           
-        plt.plot(range(len(point)), [x[0] for x in point],
+        plt.plot(np.asarray(range(len(point)))/fps, [x[0] for x in point],
                   alpha=0.6, color=colors[i])
         
         ax.set_title('Spring point '+str(i+1
@@ -103,7 +106,7 @@ if mode==2:             # Mode 2 is for spring.
         point=centers[i]
         x_coord=[x[0] for x in point]
         x_coord=hrun.normalize(x_coord)
-        plt.plot(range(len(point)), x_coord, colors[i],
+        plt.plot(np.asarray(range(len(point)))/fps, x_coord, colors[i],
                   alpha=0.3)
     ax.set_title('Spring, all control points.')
     plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
@@ -126,7 +129,7 @@ if mode==2:             # Mode 2 is for spring.
         x_coord=hrun.normalize(x_coord)
         x_total=hrun.add(x_coord, x_total)
     
-    plt.plot(range(len(point)), x_total, alpha=0.6)
+    plt.plot(np.asarray(range(len(point)))/fps, x_total, alpha=0.6)
     ax.set_title('All spring points, normalized')
     plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
     plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
