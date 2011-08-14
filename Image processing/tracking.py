@@ -66,12 +66,13 @@ centers=[hrun.trackingPoint(np.array(center),
  
 t3=time()
                
-for it in xrange(bottom, top+1):    # TODO: Iterate until fail
+for it in xrange(bottom, top):    # TODO: Iterate until fail
     frame=silenus.mix_channels(importer(namecode, it, folder))
     for center in centers:
         center.run(frame)
     silenus.export_literal('\n', dbfile)
     print it,
+    if it%10==0: print
 dbfile.close()
 t4=time()
 
