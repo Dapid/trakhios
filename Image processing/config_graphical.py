@@ -49,10 +49,12 @@ print 'Starting'
 
 mode=1          # 1 for pendulums, 2 for spring.
 bottom=1
-top=33
+top=4203
 
 maxit=5
 step_tol=1
+
+folder='data'
 
 if mode==1:
     tol=0.7
@@ -63,7 +65,7 @@ if mode==2:
     tol=0.13
     matrix=(0.334,0.334,0.334, 0)
 
-img0=importer('00', 55)
+img0=importer('00', bottom)
 m=len(img0)
 n=len(img0[0])
 print 'Mixing channels'
@@ -86,7 +88,7 @@ plt.title(r'$\mathrm{Histogram}$',size=15)
 plt.hist(img.flatten(), 256, fc='k', ec='k',
          histtype='stepfilled')
 plt.xlabel(r'$\mathrm{Click\ on\ the\ image\ to\ select\ '+
-           'tracking\ points.}$', size=16)
+           'tracking\ points.\ Close\ when\ finished.}$', size=16)
 
 pos=positions(m,n)
 cid = fig.canvas.mpl_connect('button_press_event', pos.onclick)
@@ -108,7 +110,7 @@ config.add_section(par)
 config.set(par, 'namecode', '00')
 config.set(par, 'bottom', bottom)
 config.set(par, 'top', top)
-config.set(par, 'folder', 'data')
+config.set(par, 'folder', folder)
 
 sil='Silenus'
 config.add_section(sil)
