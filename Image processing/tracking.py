@@ -1,5 +1,6 @@
 from __future__ import division
 from time import time
+import time
 print 'Tracking. Developing alpha version.'
 print
 print 'Importing'
@@ -32,6 +33,10 @@ def importer(name, it, folder):
     #image=mpimg.imread(os.path.join(folder,
     #                silenus.namefile(name, it)))
     return image
+
+print 'Current time:', time.localtime().tm_hour, ':',
+print time.localtime().tm_min
+print
 
 t1=time()
 # Setting up
