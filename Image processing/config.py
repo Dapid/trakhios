@@ -1,15 +1,13 @@
 import ConfigParser
 import numpy as np
 
-__version__='Config v.0.1'
+__version__='Config v.0.2'
 
 config = ConfigParser.ConfigParser()
 
 inifile = open('config.ini','w')
 
 mode=1          # 1 for pendulums, 2 for spring.
-bottom=55
-top=136
 
 maxit=5
 step_tol=1
@@ -34,17 +32,10 @@ config.set(su, 'centers', centers)
 
 config.set(su, 'dbfilename', 'data.txt')
 
-par='Parameters'
-config.add_section(par)
-#config.set(par, 'namecode', 'try1_')
-config.set(par, 'namecode', '00')
-config.set(par, 'bottom', bottom)
-config.set(par, 'top', top)
-
 sil='Silenus'
 config.add_section(sil)
 config.set(sil, 'matrix', matrix)
-config.set(sil, 'folder', 'data')
+config.set(sil, 'folder', 'MPlayer')
 
 hr='Hrun'
 config.add_section(hr)

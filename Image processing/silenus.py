@@ -5,7 +5,6 @@ import os.path
 import ConfigParser
 
 
-
 """Silenus was an old servant of the Cyclops.
 
 He is here to assist Trakios in non-scientific heavy tasks,
@@ -19,6 +18,7 @@ config.read('config.ini')
 change_matrix=eval(config.get('Silenus', 'matrix'))
             # This is actually a 1D vector. I know.
 folder=config.get('Silenus', 'folder')
+
 
 def asking_file(databasefile): # Creating saving data file.
     """Check whether the exporting file exits.
@@ -112,7 +112,6 @@ def mix_channels(img, lis=change_matrix):
         
     return im2
   
-
 def readpix(x,y, image):
     """Read the (x,y) pixel of the image.
     
@@ -132,11 +131,6 @@ def mean(lis):
     for i in lis: s+=i
     return s/len(lis)
 
-def namefile(name, it):
-    """Generate the successive name files, Vegas format."""
-    return name+str(it).zfill(6)+'.png'
-    #TODO: choose mode: Vegas, MPlayer... if needed.
-    
 def export_data(data, txtfile): # Exporting data 
     """Export the coordinates of one center per a frame.
     The numbers are written in a row, separated by commas.
@@ -148,9 +142,7 @@ def export_data(data, txtfile): # Exporting data
     for coordinate in data:
             txtfile.write(str(coordinate))
             txtfile.write(',')
-
-    
-    
+ 
 def export_literal(data, txtfile): # Write data directly.
     """Write data directly to file.
     Use it for line breaks.
