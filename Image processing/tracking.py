@@ -117,7 +117,7 @@ if __name__ == '__main__':
     Stream=frameStream(folder)
     it=1
     
-    while Stream.cont==True:    # TODO: Iterate until fail
+    while Stream.cont==True:    # Iterate while there is left.
         frame=silenus.mix_channels(Stream.importer())
         for center in centers:
             center.run(frame)
