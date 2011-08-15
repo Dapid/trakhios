@@ -94,7 +94,6 @@ dbfile=silenus.asking_file(dbfilename)
 
 t2=time.time()    
 
-
 # Parameters
 par='Parameters'
 folder=silenus.folder
@@ -118,8 +117,6 @@ if __name__ == '__main__':
     Stream=frameStream(folder)
     it=1
     
-    times=[]
-    
     while Stream.cont==True:    # TODO: Iterate until fail
         frame=silenus.mix_channels(Stream.importer())
         for center in centers:
@@ -128,9 +125,6 @@ if __name__ == '__main__':
         print it,
         if it%10==0: print
         it+=1
-        
-        
-        times.append(time.time()-t0)
         
     dbfile.close()
     t4=time.time()
@@ -144,13 +138,10 @@ if __name__ == '__main__':
     print repr(t4-t3),
     print 's iterating, what means',
     print repr((t4-t3)/it) ,'s each frame.'
-    print '(aprox.', repr((t4-t3)/it), 'min).'
+    print '(aprox.', repr((t4-t3)//60), 'min).'
     print
     print 'That makes a total of',repr(t4-t2+t1-t0),
     print 's, or', repr((t4-t2+t1-t0)/it), 's per frame.'
     print 'Those stats were obtained in', repr(time.time()-t4), 's.'
-    
-    import pylab as plt
-    plt.plot(times)
-    plt.show()
-    raw_input('Press enter to exit. ')
+
+raw_input('Press enter to exit. ')
