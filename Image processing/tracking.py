@@ -7,6 +7,7 @@ print 'Importing'
 t0=time.time()
 import os
 import ConfigParser
+import glob
 
 import matplotlib
 matplotlib.use('Agg')           # Backend.
@@ -22,17 +23,61 @@ print
 print 'Using', silenus.__version__, 'and', hrun.__version__
 print
 
-def importer(name, it, folder):
-    """Loads an image
-    
-    It is not in silenus in order to avoid
-    multiple matplotlib imports"""
-    
-    image=mpimg.imread(folder+os.sep+silenus.namefile(name, it))
-    #image=mpimg.imread(os.path.join(folder,
-    #                silenus.namefile(name, it)))
-    return image
 
+class frameStream:
+    """Loads images from subfolder.
+    
+    Only attends to what there is.
+    """
+    def __init__(self, folder):
+        self.path=os.path.join(os.curdir, folder)
+        self.folder=folder
+        self.getlist()
+        self.cont=True
+        
+    def getlist(self):
+        """Callable function."""
+        self._dirlist_()
+        
+        if len(self.dir)==0:
+            self.isend()
+
+    def _dirlist_(self):
+        """Get the list. Only for internal use.
+        
+        See getlist()."""
+        self.dir=glob.glob(os.path.join(self.path,'*.png'))
+        self.dir.sort()
+        
+    def importer(self):
+        """Loads an image
+        
+        It is not in silenus in order to avoid
+        multiple matplotlib imports"""
+        
+        filename=self.dir.pop(0)
+        image=mpimg.imread(filename)
+        os.remove(filename)
+
+        if len(self.dir)<5:
+            self.getlist()
+        return image
+    
+    def isend(self):
+        """Checks if we have reached the end of the video
+        
+        Current implementation just waits for it.
+        """
+        time.sleep(1)
+        for j in xrange(3):
+            self._dirlist_()
+            if len(self.dir)==0:
+                time.sleep(2*j)     # Wait more
+            else: return None       # Exit
+            
+        self.cont=False
+        
+        
 t1=time.time()
 # Setting up
 psyco.full()
@@ -52,10 +97,7 @@ t2=time.time()
 
 # Parameters
 par='Parameters'
-namecode=config.get(par, 'namecode')
-top=int(config.get(par, 'top'))
-bottom=int(config.get(par, 'bottom'))
-folder=config.get(par, 'folder')
+folder=silenus.folder
 
 # Iterating
 print
@@ -71,14 +113,24 @@ centers=[hrun.trackingPoint(np.array(center),
         # Converts to arrays and calls the wrapping class.
  
 t3=time.time()
-               
-for it in xrange(bottom, top):    # TODO: Iterate until fail
-    frame=silenus.mix_channels(importer(namecode, it, folder))
+         
+Stream=frameStream(folder)
+it=1
+
+times=[]
+
+while Stream.cont==True:    # TODO: Iterate until fail
+    frame=silenus.mix_channels(Stream.importer())
     for center in centers:
         center.run(frame)
     silenus.export_literal('\n', dbfile)
     print it,
     if it%10==0: print
+    it+=1
+    
+    
+    times.append(time.time()-t0)
+    
 dbfile.close()
 t4=time.time()
 
@@ -90,9 +142,14 @@ print str(t3-t2),
 print 's setting up and compiling (user-input time excluded).'
 print str(t4-t3),
 print 's iterating, what means',
-print str((t4-t3)/(top-bottom)) ,'s each frame.'
+print str((t4-t3)/it) ,'s each frame.'
+print '(aprox.', str((t4-t3)/it), 'min).'
 print
 print 'That makes a total of',str(t4-t2+t1-t0),
-print 's, or', str((t4-t2+t1-t0)/(top-bottom)), 's per frame.'
-print 'Those stats were obtained in', str(time()-t4), 's.'
+print 's, or', str((t4-t2+t1-t0)/it), 's per frame.'
+print 'Those stats were obtained in', str(time.time()-t4), 's.'
+
+import pylab as plt
+plt.plot(times)
+plt.show()
 raw_input('Press enter to exit. ')
