@@ -100,56 +100,57 @@ par='Parameters'
 folder=silenus.folder
 
 # Iterating
-print
-print 'Starting'
-print
-print 'Current time:', 
-print str(time.localtime().tm_hour)+':'+str(
-                            time.localtime().tm_min)
-print
-
-centers=[hrun.trackingPoint(np.array(center),
-         dbfile, tol) for center in centers]
-        # Converts to arrays and calls the wrapping class.
- 
-t3=time.time()
-         
-Stream=frameStream(folder)
-it=1
-
-times=[]
-
-while Stream.cont==True:    # TODO: Iterate until fail
-    frame=silenus.mix_channels(Stream.importer())
-    for center in centers:
-        center.run(frame)
-    silenus.export_literal('\n', dbfile)
-    print it,
-    if it%10==0: print
-    it+=1
+if __name__ == '__main__':
+    print
+    print 'Starting'
+    print
+    print 'Current time:', 
+    print str(time.localtime().tm_hour)+':'+str(
+                                time.localtime().tm_min)
+    print
     
+    centers=[hrun.trackingPoint(np.array(center),
+             dbfile, tol) for center in centers]
+            # Converts to arrays and calls the wrapping class.
+     
+    t3=time.time()
+             
+    Stream=frameStream(folder)
+    it=1
     
-    times.append(time.time()-t0)
+    times=[]
     
-dbfile.close()
-t4=time.time()
-
-print 'Finished'
-print
-print 'Time spent:'
-print str(t1-t0), 's importing modules.'
-print str(t3-t2),
-print 's setting up and compiling (user-input time excluded).'
-print str(t4-t3),
-print 's iterating, what means',
-print str((t4-t3)/it) ,'s each frame.'
-print '(aprox.', str((t4-t3)/it), 'min).'
-print
-print 'That makes a total of',str(t4-t2+t1-t0),
-print 's, or', str((t4-t2+t1-t0)/it), 's per frame.'
-print 'Those stats were obtained in', str(time.time()-t4), 's.'
-
-import pylab as plt
-plt.plot(times)
-plt.show()
-raw_input('Press enter to exit. ')
+    while Stream.cont==True:    # TODO: Iterate until fail
+        frame=silenus.mix_channels(Stream.importer())
+        for center in centers:
+            center.run(frame)
+        silenus.export_literal('\n', dbfile)
+        print it,
+        if it%10==0: print
+        it+=1
+        
+        
+        times.append(time.time()-t0)
+        
+    dbfile.close()
+    t4=time.time()
+    
+    print 'Finished'
+    print
+    print 'Time spent:'
+    print str(t1-t0), 's importing modules.'
+    print str(t3-t2),
+    print 's setting up and compiling (user-input time excluded).'
+    print str(t4-t3),
+    print 's iterating, what means',
+    print str((t4-t3)/it) ,'s each frame.'
+    print '(aprox.', str((t4-t3)/it), 'min).'
+    print
+    print 'That makes a total of',str(t4-t2+t1-t0),
+    print 's, or', str((t4-t2+t1-t0)/it), 's per frame.'
+    print 'Those stats were obtained in', str(time.time()-t4), 's.'
+    
+    import pylab as plt
+    plt.plot(times)
+    plt.show()
+    raw_input('Press enter to exit. ')
