@@ -138,17 +138,17 @@ if __name__ == '__main__':
     print 'Finished'
     print
     print 'Time spent:'
-    print str(t1-t0), 's importing modules.'
-    print str(t3-t2),
+    print repr(t1-t0), 's importing modules.'
+    print repr(t3-t2),
     print 's setting up and compiling (user-input time excluded).'
-    print str(t4-t3),
+    print repr(t4-t3),
     print 's iterating, what means',
-    print str((t4-t3)/it) ,'s each frame.'
-    print '(aprox.', str((t4-t3)/it), 'min).'
+    print repr((t4-t3)/it) ,'s each frame.'
+    print '(aprox.', repr((t4-t3)/it), 'min).'
     print
-    print 'That makes a total of',str(t4-t2+t1-t0),
-    print 's, or', str((t4-t2+t1-t0)/it), 's per frame.'
-    print 'Those stats were obtained in', str(time.time()-t4), 's.'
+    print 'That makes a total of',repr(t4-t2+t1-t0),
+    print 's, or', repr((t4-t2+t1-t0)/it), 's per frame.'
+    print 'Those stats were obtained in', repr(time.time()-t4), 's.'
     
     import pylab as plt
     plt.plot(times)
