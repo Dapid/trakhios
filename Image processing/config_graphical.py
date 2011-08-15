@@ -1,4 +1,6 @@
+import os, glob
 import ConfigParser
+import time
 
 import matplotlib
 import pylab as plt
@@ -16,59 +18,47 @@ def mix_channels(img, lis):
     return im2
 
 class frameStream:
-    """Loads images from subfolder.
-    
-    Only attends to what there is.
+    """Minimal version to load the first frame.
     """
     def __init__(self, folder):
         self.path=os.path.join(os.curdir, folder)
         self.folder=folder
+        self.fails=0
+        
         self.getlist()
-        self.cont=True
+        self.importer()
+        
         
     def getlist(self):
         """Callable function."""
-        self._dirlist_()
+        self.dir=glob.glob(os.path.join(self.path,'*.png'))
+        self.dir.sort()
         
         if len(self.dir)==0:
             self.isend()
 
-    def _dirlist_(self):
-        """Get the list. Only for internal use.
-        
-        See getlist()."""
-        self.dir=glob.glob(os.path.join(self.path,'*.png'))
-        self.dir.sort()
-        
     def importer(self):
-        """Loads an image
+        """Loads an image"""
         
-        It is not in silenus in order to avoid
-        multiple matplotlib imports"""
-        
-        filename=self.dir.pop(0)
+        filename=self.dir[0]
         image=mpimg.imread(filename)
-        os.remove(filename)
-
-        if len(self.dir)<5:
-            self.getlist()
+        
         return image
     
     def isend(self):
-        """Checks if we have reached the end of the video
+        if self.fails>10:
+            raise IOError
+        else: self.fails +=1
         
-        Current implementation just waits for it.
-        """
-        time.sleep(1)
-        for j in xrange(3):
-            self._dirlist_()
-            if len(self.dir)==0:
-                time.sleep(2*j)     # Wait more
-            else: return None       # Exit
-            
-        self.cont=False
+        print self.fails
+        time.sleep(self.fails)
+        self.getlist()
         
-
+    def clean(self):
+        for filename in self.dir:   # Now clean everything.
+            try: os.remove(filename)
+            except: print filename, 'not deleted.'
+        
 class positions:
     def __init__(self, m, n):
         self.centers=[]
@@ -101,12 +91,49 @@ if mode==1:
 if mode==2:
     tol=0.13
     matrix=(0.334,0.334,0.334, 0)
+    
+print 'Launching.'
+folder=os.path.join(os.curdir, 'MPlayer')
+fStr=frameStream(folder)
+print 'Importing'   
+img0=fStr.importer()
+m=len(img0)
+n=len(img0[0])
+
+print 'Mixing channels'
+
+img=mix_channels(img0, matrix)
+fStr.clean()
+
+print 'Plotting'
+fig=plt.figure()
+
+h=10
+hist=3
+ax=plt.subplot2grid((h,h),(0,0), rowspan=h-hist, colspan=h)
+plt.title(r'$\mathrm{Image\ preview}$',size=30)
+imgplot=ax.imshow(img)
+imgplot.set_cmap('gist_gray') # BW colors
+fig.colorbar(imgplot)
+
+ax=plt.subplot2grid((h,h),(h-hist+1,0), colspan=h, rowspan=hist)
+plt.title(r'$\mathrm{Histogram}$',size=15)
+plt.hist(img.flatten(), 256, fc='k', ec='k',
+         histtype='stepfilled')
+plt.xlabel(r'$\mathrm{Click\ on\ the\ image\ to\ select\ '+
+           'tracking\ points.\ Close\ when\ finished.}$', size=16)
+
+pos=positions(m,n)
+cid = fig.canvas.mpl_connect('button_press_event', pos.onclick)
+fig.canvas.set_window_title('Trakhios::Select tracking points') 
+plt.show()
+fig.canvas.mpl_disconnect(cid)
 
 # set a number of parameters
 su='Setting up'
 config.add_section(su)
 config.set(su, 'tol', tol)
-config.set(su, 'centers', centers)
+config.set(su, 'centers', pos.centers)
 
 config.set(su, 'dbfilename', 'data.txt')
 
