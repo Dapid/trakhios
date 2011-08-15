@@ -18,7 +18,7 @@ config = ConfigParser.ConfigParser()
 config.read('config.ini')
 change_matrix=eval(config.get('Silenus', 'matrix'))
             # This is actually a 1D vector. I know.
-
+folder=config.get('Silenus', 'folder')
 
 def asking_file(databasefile): # Creating saving data file.
     """Check whether the exporting file exits.

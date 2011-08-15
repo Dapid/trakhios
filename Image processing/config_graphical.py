@@ -110,11 +110,11 @@ config.add_section(par)
 config.set(par, 'namecode', '00')
 config.set(par, 'bottom', bottom)
 config.set(par, 'top', top)
-config.set(par, 'folder', folder)
 
 sil='Silenus'
 config.add_section(sil)
 config.set(sil, 'matrix', matrix)
+config.set(sil, 'folder', folder)
 
 hr='Hrun'
 config.add_section(hr)
