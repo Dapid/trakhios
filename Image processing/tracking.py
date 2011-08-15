@@ -1,11 +1,10 @@
 from __future__ import division
-from time import time
 import time
 print 'Tracking. Developing alpha version.'
 print
 print 'Importing'
 
-t0=time()
+t0=time.time()
 import os
 import ConfigParser
 
@@ -34,11 +33,7 @@ def importer(name, it, folder):
     #                silenus.namefile(name, it)))
     return image
 
-print 'Current time:', time.localtime().tm_hour, ':',
-print time.localtime().tm_min
-print
-
-t1=time()
+t1=time.time()
 # Setting up
 psyco.full()
 config = ConfigParser.ConfigParser()
@@ -52,7 +47,7 @@ n=len(centers)
 
 dbfile=silenus.asking_file(dbfilename)
 
-t2=time()    
+t2=time.time()    
 
 
 # Parameters
@@ -65,11 +60,17 @@ folder=config.get(par, 'folder')
 # Iterating
 print
 print 'Starting'
+print
+print 'Current time:', 
+print str(time.localtime().tm_hour)+':'+str(
+                            time.localtime().tm_min)
+print
+
 centers=[hrun.trackingPoint(np.array(center),
          dbfile, tol) for center in centers]
         # Converts to arrays and calls the wrapping class.
  
-t3=time()
+t3=time.time()
                
 for it in xrange(bottom, top):    # TODO: Iterate until fail
     frame=silenus.mix_channels(importer(namecode, it, folder))
@@ -79,7 +80,7 @@ for it in xrange(bottom, top):    # TODO: Iterate until fail
     print it,
     if it%10==0: print
 dbfile.close()
-t4=time()
+t4=time.time()
 
 print 'Finished'
 print
