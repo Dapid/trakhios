@@ -103,7 +103,7 @@ n=len(img0[0])
 print 'Mixing channels'
 
 img=mix_channels(img0, matrix)
-fStr.clean()
+#fStr.clean()
 
 print 'Plotting'
 fig=plt.figure()

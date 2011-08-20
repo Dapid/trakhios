@@ -138,7 +138,7 @@ if __name__ == '__main__':
     print repr(t4-t3),
     print 's iterating, what means',
     print repr((t4-t3)/it) ,'s each frame.'
-    print '(aprox.', repr((t4-t3)//60), 'min).'
+    print '(aprox.', repr(int((t4-t3)//60)), 'min).'
     print
     print 'That makes a total of',repr(t4-t2+t1-t0),
     print 's, or', repr((t4-t2+t1-t0)/it), 's per frame.'
