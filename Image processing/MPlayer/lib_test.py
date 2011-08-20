@@ -17,6 +17,9 @@ class playerStream:
         if self.ispaused:
             self.p.pause()
             self.ispaused=False
+            
+    def quit(self):
+        self.p.quit()
 
 print 'Starting player'
 vid=playerStream()
@@ -31,8 +34,15 @@ while True:
         vid.resume()
     
     time.sleep(0.2)
+    if len(dir)==base:          # If no frames left
+        dir=os.listdir(curr)    # give it some time
+        if len(dir)==base:      # and break.
+            break               # Maybe lib could provide it.
 
-print 'End reached.' 
+print 'End reached.'
+vid.quit()
+print 'Quitted.'
+ 
 """
 print 'A'
 p = Player(['-vo', 'png', 'P.mp4'])
