@@ -51,7 +51,7 @@ for frame in data:
 t3=time()
 
 # Generate plotting
-fps=30
+fps=29.97003
 
 print "Plotting."
 if mode==1:             # Mode 1 is for pendulum.
