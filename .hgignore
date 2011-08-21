@@ -17,3 +17,4 @@ glob:MPlayer/mplayer/*
 glob:MPlayer/*.mp4
 glob:MPlayer/*.wmv
 glob:vids/*
+glob:.settings/*
