@@ -36,15 +36,15 @@ vid=playerStream()
 
 while True:
     dir=os.listdir(curr)
-    frames=len(dir)
-    if frames>base+30:
+    files=len(dir)
+    if files>base+30:
         vid.pause()
         time.sleep(0.2)
     else:
         vid.resume()
         time.sleep(0.5)
     
-    if frames==base:        # If no frames left
+    if files==base:        # If no frames left
         if vid.isend():     # and it is the end,
             break           # exit
 
