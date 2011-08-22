@@ -32,6 +32,7 @@ config.read('config.ini')
 # Parameters
 dbfilename=config.get('Setting up', 'dbfilename')
 mode=int(config.get('Plotting', 'mode'))
+fps=float(config.get('Plotting', 'fps'))
 
 print "Importing and formatting"
 # Load data
@@ -51,7 +52,6 @@ for frame in data:
 t3=time()
 
 # Generate plotting
-fps=29.97003
 
 print "Plotting."
 if mode==1:             # Mode 1 is for pendulum.
@@ -67,7 +67,7 @@ if mode==1:             # Mode 1 is for pendulum.
         num=len(point)
         plt.plot(np.asarray(range(num))/fps,
                         x_coord, colors[i])
-        axis=list(plt.axis())                         # Axis adjustment
+        axis=list(plt.axis())         # Axis adjustment
         axis[1]=num/fps
         plt.axis(axis)
     ax.set_title(r'$\mathrm{Both\ pendulums,\ normalized}$',
@@ -87,9 +87,10 @@ if mode==2:             # Mode 2 is for spring.
         ax=fig.add_subplot(111)
         point=centers[i]
           
-        plt.plot(np.asarray(range(len(point)))/fps, [x[0] for x in point],
+        plt.plot(np.asarray(range(len(point)))/fps,
+                  [x[0] for x in point],
                   alpha=0.6, color=colors[i])
-        axis=list(plt.axis())                         # Axis adjustment
+        axis=list(plt.axis())             # Axis adjustment
         axis[1]=num/fps
         plt.axis(axis)
         
@@ -112,7 +113,7 @@ if mode==2:             # Mode 2 is for spring.
         x_coord=hrun.normalize(x_coord)
         plt.plot(np.asarray(range(len(point)))/fps, x_coord, colors[i],
                   alpha=0.3)
-        axis=list(plt.axis())                         # Axis adjustment
+        axis=list(plt.axis())              # Axis adjustment
         axis[1]=num/fps
         plt.axis(axis)
         
@@ -138,7 +139,7 @@ if mode==2:             # Mode 2 is for spring.
         x_total=hrun.add(x_coord, x_total)
     
     plt.plot(np.asarray(range(len(point)))/fps, x_total, alpha=0.6)
-    axis=list(plt.axis())                         # Axis adjustment
+    axis=list(plt.axis())                 # Axis adjustment
     axis[1]=num/fps
     plt.axis(axis)
     ax.set_title('All spring points, normalized')
@@ -149,18 +150,28 @@ if mode==2:             # Mode 2 is for spring.
 if mode==3:
     colors=['r', 'b', 'g', 'k']
     fc=1
-    for center in centers:
+    title=[r'$\mathrm{Platypus\ pendulum:\ bill}$',
+            r'$\mathrm{Platypus\ pendulum:\ left\ upper\ leg}$',
+            r'$\mathrm{Platypus\ pendulum:\ right\ upper\ leg}$',
+            r'$\mathrm{Platypus\ pendulum:\ back\ leg}$']
+    
+    for track_point in centers:
         fig=plt.figure(fc)
         ax=fig.add_subplot(111)
-        x=[xx[0] for xx in center]
-        y=[xx[1] for xx in center]
-        plt.plot(x,y, color=colors[fc-1])
-        ax.set_title(r'$\mathrm{Platypus\ pendulum.}$',
+        y=[xx[1] for xx in track_point]
+        num=len(y)
+        plt.plot(np.asarray(range(num))/fps,y,
+                  color=colors[fc-1])
+        axis=list(plt.axis())              # Axis adjustment
+        axis[1]=num/fps
+        plt.axis(axis)
+        ax.set_title(title[fc-1],
                       size=20)
+        plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
+        plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$',
+                    size=15)
         plt.savefig('Platypus_tracking_{0}.png'.format(fc))
         fc+=1
-    #plt.savefig('Platypus_tracking.png')
-    #fig.canvas.set_window_title('Trakhios::Results')
 
 t4=time()
 print 'Finished'

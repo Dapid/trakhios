@@ -6,7 +6,15 @@ import matplotlib
 import pylab as plt
 import matplotlib.image as mpimg
 
-
+def input_float(mess):
+    while True:
+        inp=raw_input(mess)
+        try:
+            inp=float(inp)
+            return inp
+        except:
+            mess='Incorrect input. Try again: '
+            
 def mix_channels(img, lis):
     """Mix the channels of the whole image
     
@@ -93,9 +101,10 @@ if mode==2:
     matrix=(0.334,0.334,0.334, 0)
 
 if mode==3:
-    tol=0.16
-    matrix=(1.2, -0.1, -1.2, 0)
-    
+    tol=0.4
+    matrix=(0.334, 0.334, 0.334, 0)
+
+
 print 'Launching.'
 folder=os.path.join(os.curdir, 'MPlayer')
 fStr=frameStream(folder)
@@ -133,6 +142,13 @@ fig.canvas.set_window_title('Trakhios::Select tracking points')
 plt.show()
 fig.canvas.mpl_disconnect(cid)
 
+
+# INPUT PART
+
+tol=input_float('Please, insert the tolerance level: ')
+fps=input_float('Please, insert the video fps: ')
+
+
 # set a number of parameters
 su='Setting up'
 config.add_section(su)
@@ -154,6 +170,7 @@ config.set(hr, 'step_tol', step_tol)
 plot='Plotting'
 config.add_section(plot)
 config.set(plot, 'mode', mode)
+config.set(plot, 'fps', fps)
 
 # Write
 config.write(inifile)

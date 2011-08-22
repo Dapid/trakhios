@@ -45,6 +45,7 @@ config.set(hr, 'step_tol', step_tol)
 plot='Plotting'
 config.add_section(plot)
 config.set(plot, 'mode', mode)
+config.set(plot, 'fps', 25)
 
 # Write
 config.write(inifile)

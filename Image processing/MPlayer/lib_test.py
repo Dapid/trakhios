@@ -4,9 +4,11 @@ import os
 
 class playerStream:
     def __init__(self):
-        self.p=Player(['-vo', 'png:z=3', 'P.mp4',
+        self.p=Player(['-vo', 'png:z=3', 'Platypus.mp4',
                        '-nosound'])#,'-fontconfig=0'])
         self.ispaused=False
+        self.fps=self.p.fps
+        print 'Running at', self.fps, 'fps.'
         
     def pause(self):
         if not self.ispaused:
