@@ -117,8 +117,14 @@ if __name__ == '__main__':
     Stream=frameStream(folder)
     it=1
     
-    while Stream.cont==True:    # Iterate while there is left.
-        frame=silenus.mix_channels(Stream.importer())
+    while Stream.cont==True:   # Iterate while there is left.
+        try:
+            frame=silenus.mix_channels(Stream.importer())
+        except RuntimeError:
+            print 'RuntimeError'
+            time.sleep(0.2)
+            continue
+        
         for center in centers:
             center.run(frame)
         silenus.export_literal('\n', dbfile)
@@ -144,4 +150,4 @@ if __name__ == '__main__':
     print 's, or', repr((t4-t2+t1-t0)/it), 's per frame.'
     print 'Those stats were obtained in', repr(time.time()-t4), 's.'
 
-raw_input('Press enter to exit. ')
+    raw_input('Press enter to exit. ')
