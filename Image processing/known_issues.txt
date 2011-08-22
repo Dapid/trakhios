@@ -1,2 +1,0 @@
-Blank line at end of data causes crashing in plotting.
-MTS video format causes troubles.
