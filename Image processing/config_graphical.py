@@ -79,7 +79,7 @@ config = ConfigParser.ConfigParser()
 
 inifile = open('config.ini','w')
 
-mode=1          # 1 for pendulums, 2 for spring.
+mode=3          # 1 for pendulums, 2 for spring.
 
 maxit=5
 step_tol=1
@@ -91,6 +91,10 @@ if mode==1:
 if mode==2:
     tol=0.13
     matrix=(0.334,0.334,0.334, 0)
+
+if mode==3:
+    tol=0.16
+    matrix=(1.2, -0.1, -1.2, 0)
     
 print 'Launching.'
 folder=os.path.join(os.curdir, 'MPlayer')

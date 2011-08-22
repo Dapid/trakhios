@@ -11,7 +11,7 @@ import ConfigParser
 
 import numpy as np
 import matplotlib
-matplotlib.interactive(True)
+#matplotlib.interactive(True)
 matplotlib.use('TkAgg')           # Backend.
 import pylab as plt
 import matplotlib.image as mpimg
@@ -146,7 +146,21 @@ if mode==2:             # Mode 2 is for spring.
     plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$', size=15)
     plt.savefig('Average.png')
 
-
+if mode==3:
+    colors=['r', 'b', 'g', 'k']
+    fc=1
+    for center in centers:
+        fig=plt.figure(fc)
+        ax=fig.add_subplot(111)
+        x=[xx[0] for xx in center]
+        y=[xx[1] for xx in center]
+        plt.plot(x,y, color=colors[fc-1])
+        ax.set_title(r'$\mathrm{Platypus\ pendulum.}$',
+                      size=20)
+        plt.savefig('Platypus_tracking_{0}.png'.format(fc))
+        fc+=1
+    #plt.savefig('Platypus_tracking.png')
+    #fig.canvas.set_window_title('Trakhios::Results')
 
 t4=time()
 print 'Finished'
