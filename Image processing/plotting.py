@@ -167,7 +167,7 @@ if mode==3:
         plt.axis(axis)
         ax.set_title(title[fc-1],
                       size=20)
-        plt.xlabel(r'$\mathrm{Time\ }(frames)$', size=15)
+        plt.xlabel(r'$\mathrm{Time\ }(s)$', size=15)
         plt.ylabel(r'$\mathrm{Horizontal\ position\ }(px)$',
                     size=15)
         plt.savefig('Platypus_tracking_{0}.png'.format(fc))
