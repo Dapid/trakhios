@@ -1,0 +1,20 @@
+*.pyc
+*Thumbs.db
+Image processing/data/*.png
+Image processing/data*.txt
+.pydevproject
+Image processing/Other data/*
+Image processing/Other results/*
+Image processing/config.ini
+MPlayer/*.exe
+MPlayer/*.dll
+MPlayer/*.html
+MPlayer/*.bat
+MPlayer/*.txt
+MPlayer/docs/*
+MPlayer/fonts/*
+MPlayer/mplayer/*
+MPlayer/*.mp4
+MPlayer/*.wmv
+vids/*
+.settings/*
